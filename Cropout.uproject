@@ -1,8 +1,18 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.3",
+	"EngineAssociation": "{303AA2D6-489F-6BC4-2C90-F0A8ED8458EC}",
 	"Category": "Samples",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "Cropout",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "GeometryScripting",
