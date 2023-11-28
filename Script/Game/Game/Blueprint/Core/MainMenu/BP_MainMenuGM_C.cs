@@ -30,7 +30,7 @@ namespace Script.Game.Blueprint.Core.MainMenu
 
             UI_Layer_Menu.ActivateWidget();
 
-            var BP_GI = Unreal.Cast<BP_GI_C>(UGameplayStatics.GetGameInstance(this));
+            var BP_GI = UGameplayStatics.GetGameInstance(this) as BP_GI_C;
 
             BP_GI.TransitionOut();
 
