@@ -90,7 +90,7 @@ namespace Script.Game.UI.Game
                     var UIE_Resource =
                         Unreal.CreateWidget<UIE_Resource_C>(UGameplayStatics.GetPlayerController(this, 0));
 
-                    UIE_Resource.Resource_h20_Type = Resources;
+                    UIE_Resource.ResourceType = Resources;
 
                     ResourceContainer.AddChild(UIE_Resource);
 
