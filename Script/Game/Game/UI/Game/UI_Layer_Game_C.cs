@@ -78,6 +78,8 @@ namespace Script.Game.UI.Game
         {
             while (!TokenSource.IsCancellationRequested)
             {
+                await Task.Delay(100);
+
                 /*
                  * Check if end of enum is reached
                  */
@@ -96,8 +98,6 @@ namespace Script.Game.UI.Game
 
                     Resources += 1;
                 }
-
-                await Task.Delay(100);
             }
         }
 
