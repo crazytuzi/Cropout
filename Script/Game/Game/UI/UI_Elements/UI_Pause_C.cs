@@ -68,7 +68,7 @@ namespace Script.Game.UI.UI_Elements
 
             (GI as IBPI_GI_C).ClearSave();
 
-            GI.Open_h20_Level(Unreal.LoadObject<Village>(this));
+            GI.OpenLevel(Unreal.LoadObject<Village>(this));
         }
 
         private void OnMainMenuBtnClicked(UCommonButtonBase Button)
@@ -77,7 +77,7 @@ namespace Script.Game.UI.UI_Elements
 
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 
-            GI.Open_h20_Level(Unreal.LoadObject<Script.Game.MainMenu>(this));
+            GI.OpenLevel(Unreal.LoadObject<Script.Game.MainMenu>(this));
         }
     }
 }

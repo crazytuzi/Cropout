@@ -104,7 +104,7 @@ namespace Script.Game.UI.MainMenu
         {
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 
-            GI.Open_h20_Level(Unreal.LoadObject<Village>(this));
+            GI.OpenLevel(Unreal.LoadObject<Village>(this));
         }
 
         /*
@@ -135,7 +135,7 @@ namespace Script.Game.UI.MainMenu
 
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 
-            GI.Open_h20_Level(Unreal.LoadObject<Village>(this));
+            GI.OpenLevel(Unreal.LoadObject<Village>(this));
         }
 
         /*

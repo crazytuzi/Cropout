@@ -42,7 +42,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Set new level and mask with UI_Transition
          */
-        public void Open_h20_Level(TSoftObjectPtr<UWorld> Level = null)
+        public void OpenLevel(TSoftObjectPtr<UWorld> Level = null)
         {
             TransitionIn();
 
@@ -57,7 +57,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         [IsOverride]
         public void ClearSave(Boolean Clear_h20_Seed = false)
         {
-            Clear_h20_Save();
+            ClearSaveRef();
 
             if (Clear_h20_Seed)
             {
@@ -201,7 +201,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        private void Clear_h20_Save()
+        private void ClearSaveRef()
         {
             SaveRef.Play_h20_Time = 0.0;
 
@@ -250,7 +250,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        public void Stop_h20_Music()
+        public void StopMusic()
         {
             bMusicPlaying = false;
 

@@ -79,7 +79,7 @@ namespace Script.Game.UI.UI_Elements
 
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 
-            GI.Stop_h20_Music();
+            GI.StopMusic();
         }
 
         private void OnPlayAgainBtnClicked(UCommonButtonBase Button)
@@ -88,7 +88,7 @@ namespace Script.Game.UI.UI_Elements
 
             GI.ClearSave();
 
-            GI.Open_h20_Level(Unreal.LoadObject<Village>(this));
+            GI.OpenLevel(Unreal.LoadObject<Village>(this));
 
             UGameplayStatics.SetGamePaused(this, false);
         }
@@ -104,7 +104,7 @@ namespace Script.Game.UI.UI_Elements
         {
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 
-            GI.Open_h20_Level(Unreal.LoadObject<Script.Game.MainMenu>(this));
+            GI.OpenLevel(Unreal.LoadObject<Script.Game.MainMenu>(this));
 
             UGameplayStatics.SetGamePaused(this, false);
         }
