@@ -100,7 +100,7 @@ namespace Script.Game.Blueprint.Core.GameMode
          * UI Interactions
          */
         [IsOverride]
-        private void End_h20_Game(Boolean Win = false)
+        public void End_h20_Game(Boolean Win = false)
         {
             if (bDoOnce)
             {
