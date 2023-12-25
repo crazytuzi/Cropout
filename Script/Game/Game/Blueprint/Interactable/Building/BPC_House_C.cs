@@ -35,7 +35,7 @@ namespace Script.Game.Blueprint.Interactable.Building
         }
 
         [IsOverride]
-        public override void Placement_h20_Mode()
+        protected override void Placement_h20_Mode()
         {
             base.Placement_h20_Mode();
 
