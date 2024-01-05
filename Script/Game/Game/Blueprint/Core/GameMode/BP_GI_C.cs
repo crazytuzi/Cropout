@@ -144,7 +144,7 @@ namespace Script.Game.Blueprint.Core.GameMode
                     SaveRef.Villagers.Add(new ST_Villager
                     {
                         Location = OutActor.GetTransform().GetLocation(),
-                        Task = OutActor.Tags[0]
+                        Task = OutActor.Tags.IsValidIndex(0) ? OutActor.Tags[0] : ""
                     });
                 }
             }

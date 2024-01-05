@@ -162,7 +162,7 @@ namespace Script.Game.UI.UI_Elements
 
             var BP_Player = BP_PC.K2_GetPawn() as BP_Player_C;
 
-            BP_Player.Spawn_h20_Build_h20_Target();
+            BP_Player.SpawnBuildTarget();
         }
 
         private void OnRotateBtnClicked(UCommonButtonBase Button)
@@ -171,7 +171,7 @@ namespace Script.Game.UI.UI_Elements
 
             var BP_Player = BP_PC.K2_GetPawn() as BP_Player_C;
 
-            BP_Player.Rotate_h20_Spawn();
+            BP_Player.RotateSpawn();
         }
 
         private void OnCancelBtnClicked(UCommonButtonBase Button)
@@ -180,7 +180,7 @@ namespace Script.Game.UI.UI_Elements
 
             var BP_Player = BP_PC.K2_GetPawn() as BP_Player_C;
 
-            BP_Player.Destroy_h20_Spawn();
+            BP_Player.DestroySpawn();
 
             DeactivateWidget();
         }

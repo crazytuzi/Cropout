@@ -57,7 +57,7 @@ namespace Script.Game.Blueprint.Interactable
         }
 
         [IsOverride]
-        protected virtual void Placement_h20_Mode()
+        public virtual void Placement_h20_Mode()
         {
             Enable_h20_Ground_h20_Blend = false;
 
