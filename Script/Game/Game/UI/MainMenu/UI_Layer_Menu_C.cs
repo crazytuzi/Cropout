@@ -1,5 +1,4 @@
 using Script.Common;
-using Script.CommonUI;
 
 namespace Script.Game.UI.MainMenu
 {
@@ -12,12 +11,6 @@ namespace Script.Game.UI.MainMenu
             var UI_MainMenu = MainStack.BP_AddWidget(UI_MainMenu_C.StaticClass()) as UI_MainMenu_C;
 
             UI_MainMenu.StackRef = MainStack;
-        }
-
-        [IsOverride]
-        public virtual void Add_h20_Stack_h20_Item(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass)
-        {
-            MainStack.BP_AddWidget(ActivatableWidgetClass);
         }
     }
 }
