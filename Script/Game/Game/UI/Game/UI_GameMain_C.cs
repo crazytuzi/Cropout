@@ -32,7 +32,7 @@ namespace Script.Game.UI.Game
         {
             var BP_PC = UGameplayStatics.GetPlayerController(this, 0) as BP_PC_C;
 
-            UI_GameMain_AutoGenFunc(BP_PC.InputType);
+            UIGameMainAutoGeneratorFunction(BP_PC.InputType);
 
             BP_PC.KeySwitch.Add(this, OnKeySwitch);
 
@@ -45,30 +45,29 @@ namespace Script.Game.UI.Game
             UWidgetBlueprintLibrary.SetFocusToGameViewport();
         }
 
-        [IsOverride]
-        public virtual void UI_GameMain_AutoGenFunc(E_InputType New_h20_Input = E_InputType.Unknown)
+        private void UIGameMainAutoGeneratorFunction(E_InputType NewInputType = E_InputType.Unknown)
         {
             var PlayerController = UGameplayStatics.GetPlayerController(this, 0);
 
             PlayerController.bShowMouseCursor = false;
 
-            if (New_h20_Input == E_InputType.Unknown)
+            if (NewInputType == E_InputType.Unknown)
             {
                 UWidgetBlueprintLibrary.SetInputMode_GameAndUIEx(PlayerController, null, EMouseLockMode.DoNotLock,
                     false);
             }
-            else if (New_h20_Input == E_InputType.KeyMouse)
+            else if (NewInputType == E_InputType.KeyMouse)
             {
                 PlayerController.bShowMouseCursor = true;
 
                 UWidgetBlueprintLibrary.SetInputMode_GameAndUIEx(PlayerController, null, EMouseLockMode.DoNotLock,
                     false);
             }
-            else if (New_h20_Input == E_InputType.Gamepad)
+            else if (NewInputType == E_InputType.Gamepad)
             {
                 UWidgetBlueprintLibrary.SetInputMode_GameOnly(PlayerController, true);
             }
-            else if (New_h20_Input == E_InputType.Touch)
+            else if (NewInputType == E_InputType.Touch)
             {
                 UWidgetBlueprintLibrary.SetInputMode_GameAndUIEx(PlayerController, null, EMouseLockMode.DoNotLock,
                     false);
@@ -79,7 +78,7 @@ namespace Script.Game.UI.Game
 
         private void OnKeySwitch(E_InputType NewType)
         {
-            UI_GameMain_AutoGenFunc(NewType);
+            UIGameMainAutoGeneratorFunction(NewType);
         }
 
         /*
