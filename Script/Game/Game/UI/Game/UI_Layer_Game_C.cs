@@ -52,20 +52,17 @@ namespace Script.Game.UI.Game
             TokenSource?.Cancel();
         }
 
-        [IsOverride]
-        public virtual void Add_h20_Stack_h20_Item(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass)
+        public void AddStackItem(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass)
         {
             MainStack.BP_AddWidget(ActivatableWidgetClass);
         }
 
-        [IsOverride]
-        public virtual void Pull_h20_Current_h20_Active_h20_Widget()
+        public void PullCurrentActiveWidget()
         {
             MainStack.RemoveWidget(MainStack.GetActiveWidget());
         }
 
-        [IsOverride]
-        public virtual void End_h20_Game(Boolean Win = false)
+        public void EndGame(Boolean Win = false)
         {
             var UI_EndGame = MainStack.BP_AddWidget(UI_EndGame_C.StaticClass()) as UI_EndGame_C;
 

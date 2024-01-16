@@ -118,13 +118,13 @@ namespace Script.Game.Blueprint.Core.GameMode
         [IsOverride]
         public void Add_h20_UI(TSubclassOf<UCommonActivatableWidget> NewParam)
         {
-            UI_HUD.Add_h20_Stack_h20_Item(NewParam);
+            UI_HUD.AddStackItem(NewParam);
         }
 
         [IsOverride]
         public void Remove_h20_Current_h20_UI_h20_Layer()
         {
-            UI_HUD.Pull_h20_Current_h20_Active_h20_Widget();
+            UI_HUD.PullCurrentActiveWidget();
         }
 
         /*
@@ -339,7 +339,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
                 EndGameTokenSource.Cancel();
 
-                UI_HUD.End_h20_Game(Win);
+                UI_HUD.EndGame(Win);
             }
         }
 
