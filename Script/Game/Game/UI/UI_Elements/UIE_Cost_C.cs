@@ -1,3 +1,4 @@
+using System;
 using Script.Common;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable.Extras;
@@ -36,5 +37,9 @@ namespace Script.Game.UI.UI_Elements
 
             Image_17.SetBrushFromTexture(SoftTexture);
         }
+
+        public Int32 Cost;
+
+        public E_ResourceType Resource;
     }
 }
