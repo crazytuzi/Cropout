@@ -32,8 +32,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Get Stored Sound Class Volume in GI
          */
-        [IsOverride]
-        public virtual void Update_h20_Slider()
+        public void UpdateSlider()
         {
             BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
 

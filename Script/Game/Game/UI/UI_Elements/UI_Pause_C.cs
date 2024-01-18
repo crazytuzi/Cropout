@@ -40,9 +40,9 @@ namespace Script.Game.UI.UI_Elements
 
             UGameplayStatics.SetGamePaused(this, true);
 
-            Slider_Music.Update_h20_Slider();
+            Slider_Music.UpdateSlider();
 
-            Slider_SFX.Update_h20_Slider();
+            Slider_SFX.UpdateSlider();
         }
 
         [IsOverride]
