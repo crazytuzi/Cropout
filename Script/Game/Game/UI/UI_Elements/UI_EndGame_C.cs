@@ -57,10 +57,9 @@ namespace Script.Game.UI.UI_Elements
         /*
          * End Game Variance
          */
-        [IsOverride]
-        public void EndGame(Boolean Win_h3F_ = false)
+        public void EndGame(Boolean bIsWin = false)
         {
-            WIN = Win_h3F_;
+            WIN = bIsWin;
 
             if (WIN)
             {
