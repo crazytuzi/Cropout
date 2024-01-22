@@ -15,14 +15,12 @@ namespace Script.Game.UI
             TokenSource?.Cancel();
         }
 
-        [IsOverride]
-        public virtual void Trans_h20_In()
+        public void TransIn()
         {
             PlayAnimation(NewAnimation);
         }
 
-        [IsOverride]
-        public virtual void Trans_h20_Out()
+        public void TransOut()
         {
             PlayAnimation(NewAnimation, 0.0f, 1, EUMGSequencePlayMode.Reverse);
 

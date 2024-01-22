@@ -159,7 +159,7 @@ namespace Script.Game.Blueprint.Core.GameMode
                 UI_Transition.AddToViewport();
             }
 
-            UI_Transition.Trans_h20_In();
+            UI_Transition.TransIn();
         }
 
         [IsOverride]
@@ -170,7 +170,7 @@ namespace Script.Game.Blueprint.Core.GameMode
                 UI_Transition.AddToViewport();
             }
 
-            UI_Transition.Trans_h20_Out();
+            UI_Transition.TransOut();
         }
 
         /*
