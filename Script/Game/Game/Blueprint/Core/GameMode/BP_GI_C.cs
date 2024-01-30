@@ -162,7 +162,6 @@ namespace Script.Game.Blueprint.Core.GameMode
             UI_Transition.TransIn();
         }
 
-        [IsOverride]
         public void TransitionOut()
         {
             if (!UI_Transition.IsInViewport())
@@ -219,8 +218,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             bMusicPlaying = false;
         }
 
-        [IsOverride]
-        public void Play_h20_Music(USoundBase Audio = null, Single Volume = 1.000000f, Boolean Persist = true)
+        public void PlayMusic(USoundBase Audio = null, Single Volume = 1.000000f, Boolean Persist = true)
         {
             if (!bMusicPlaying)
             {

@@ -31,7 +31,7 @@ namespace Script.Game
                 0.0f,
                 1.0f);
 
-            BP_GI.Play_h20_Music(Unreal.LoadObject<MUS_Main_MSS>(this));
+            BP_GI.PlayMusic(Unreal.LoadObject<MUS_Main_MSS>(this));
         }
     }
 }

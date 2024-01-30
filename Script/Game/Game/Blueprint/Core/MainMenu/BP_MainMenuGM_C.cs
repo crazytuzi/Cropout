@@ -68,7 +68,7 @@ namespace Script.Game.Blueprint.Core.MainMenu
                 0.5f,
                 10.0f);
 
-            BP_GI.Play_h20_Music(Unreal.LoadObject<MUS_Main_MSS>(this));
+            BP_GI.PlayMusic(Unreal.LoadObject<MUS_Main_MSS>(this));
         }
 
         private void OnSuccess(APlayerController PlayerController)
