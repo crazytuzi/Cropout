@@ -8,7 +8,7 @@ namespace Script.Game.Blueprint.Core.Player
     public partial class BPF_Shared_C
     {
         [IsOverride]
-        public static void Convert_h20_To_h20_Stepped_h20_Pos(FVector A, UObject __WorldContext, out FVector NewParam)
+        public static void ConvertToSteppedPos(FVector A, UObject __WorldContext, out FVector NewParam)
         {
             NewParam = new FVector
             {

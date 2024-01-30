@@ -592,7 +592,7 @@ namespace Script.Game.Blueprint.Core.Player
             {
                 if (Spawn != null)
                 {
-                    BPF_Shared_C.Convert_h20_To_h20_Stepped_h20_Pos(Intersection, this, out var NewParam);
+                    BPF_Shared_C.ConvertToSteppedPos(Intersection, this, out var NewParam);
 
                     var InterpVector = UKismetMathLibrary.VInterpTo(Spawn.K2_GetActorLocation(), NewParam,
                         (Single)UGameplayStatics.GetWorldDeltaSeconds(this), 10.0f);
