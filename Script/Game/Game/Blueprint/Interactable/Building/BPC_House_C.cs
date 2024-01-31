@@ -51,7 +51,7 @@ namespace Script.Game.Blueprint.Interactable.Building
             {
                 BPF_Cropout_C.Get_h20_Cropout_h20_GM(this, out var GM);
 
-                GM.Spawn_h20_Villagers(Villager_h20_Capacity);
+                GM.SpawnVillagers(Villager_h20_Capacity);
             }
         }
 

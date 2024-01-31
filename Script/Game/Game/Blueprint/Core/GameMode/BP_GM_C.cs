@@ -99,8 +99,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * UI Interactions
          */
-        [IsOverride]
-        public void End_h20_Game(Boolean Win = false)
+        public void EndGame(Boolean bIsWin = false)
         {
             if (bDoOnce)
             {
@@ -108,7 +107,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
                 EndGameTokenSource = new CancellationTokenSource();
 
-                OnEndGame(Win);
+                OnEndGame(bIsWin);
             }
         }
 
@@ -151,14 +150,14 @@ namespace Script.Game.Blueprint.Core.GameMode
             SpawnRef.Spawn_h20_Random();
         }
 
-        private void SpawnVillagers(Int32 Add = 0)
+        public void SpawnVillagers(Int32 Add = 0)
         {
             /*
              * Create villagers
              */
             for (var i = 1; i < Add; i++)
             {
-                Spawn_h20_Villager();
+                SpawnVillager();
             }
 
             /*
@@ -219,8 +218,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             BPI_GI.Update_h20_All_h20_Resources(Resources);
         }
 
-        [IsOverride]
-        private void Spawn_h20_Villager()
+        private void SpawnVillager()
         {
             var Origin = new FVector();
 
@@ -284,7 +282,7 @@ namespace Script.Game.Blueprint.Core.GameMode
              */
             if (Resources[E_ResourceType.Food] <= 0)
             {
-                End_h20_Game();
+                EndGame();
             }
         }
 

@@ -32,7 +32,7 @@ namespace Script.Game.Blueprint.Interactable.Building
 
             BPF_Cropout_C.Get_h20_Cropout_h20_GM(this, out var GM);
 
-            GM.End_h20_Game(true);
+            GM.EndGame(true);
         }
     }
 }
