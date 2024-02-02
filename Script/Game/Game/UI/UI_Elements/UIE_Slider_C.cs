@@ -34,7 +34,7 @@ namespace Script.Game.UI.UI_Elements
          */
         public void UpdateSlider()
         {
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             Slider_67.SetValue((float)GI.SoundMixes[Index]);
         }
@@ -44,7 +44,7 @@ namespace Script.Game.UI.UI_Elements
          */
         private void OnValueChanged(Single Value)
         {
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.SoundMixes[Index] = Value;
 

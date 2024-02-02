@@ -76,14 +76,14 @@ namespace Script.Game.UI.UI_Elements
                     0.0f);
             }
 
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.StopMusic();
         }
 
         private void OnPlayAgainBtnClicked(UCommonButtonBase Button)
         {
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.ClearSave();
 
@@ -101,7 +101,7 @@ namespace Script.Game.UI.UI_Elements
 
         private void OnMainMenuBtnClicked(UCommonButtonBase Button)
         {
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.OpenLevel(Unreal.LoadObject<Script.Game.MainMenu>(this));
 

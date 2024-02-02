@@ -33,7 +33,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             /*
              * Set loading screen to animate out, reset render target
              */
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.TransitionOut();
 
@@ -137,7 +137,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
             var Index = UKismetMathLibrary.RandomInteger(OutActors.Num());
 
-            BPF_Cropout_C.Stepped_h20_Position(OutActors[Index].K2_GetActorLocation(), this, out var NewParam1);
+            BPF_Cropout_C.SteppedPosition(OutActors[Index].K2_GetActorLocation(), this, out var NewParam1);
 
             Town_h20_Hall = GetWorld().SpawnActor<AActor>(TownHall_Ref.LoadSynchronous(),
                 new FTransform { Translation = NewParam1 });

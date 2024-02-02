@@ -64,7 +64,7 @@ namespace Script.Game.UI.UI_Elements
         {
             UGameplayStatics.SetGamePaused(this, false);
 
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             (GI as IBPI_GI_C).ClearSave();
 
@@ -75,7 +75,7 @@ namespace Script.Game.UI.UI_Elements
         {
             UGameplayStatics.SetGamePaused(this, false);
 
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.OpenLevel(Unreal.LoadObject<Script.Game.MainMenu>(this));
         }

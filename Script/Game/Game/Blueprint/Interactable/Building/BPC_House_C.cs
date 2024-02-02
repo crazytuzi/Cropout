@@ -49,7 +49,7 @@ namespace Script.Game.Blueprint.Interactable.Building
         {
             if (bDoOnce)
             {
-                BPF_Cropout_C.Get_h20_Cropout_h20_GM(this, out var GM);
+                BPF_Cropout_C.GetCropoutGM(this, out var GM);
 
                 GM.SpawnVillagers(Villager_h20_Capacity);
             }

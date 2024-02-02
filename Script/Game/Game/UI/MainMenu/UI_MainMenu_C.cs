@@ -102,7 +102,7 @@ namespace Script.Game.UI.MainMenu
          */
         private void OnContinueBtnClicked(UCommonButtonBase Button)
         {
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.OpenLevel(Unreal.LoadObject<Village>(this));
         }
@@ -133,7 +133,7 @@ namespace Script.Game.UI.MainMenu
 
             BP_GI.ClearSave(true);
 
-            BPF_Cropout_C.Get_h20_Cropout_h20_GI(this, out var GI);
+            BPF_Cropout_C.GetCropoutGI(this, out var GI);
 
             GI.OpenLevel(Unreal.LoadObject<Village>(this));
         }

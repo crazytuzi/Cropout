@@ -216,7 +216,7 @@ namespace Script.Game.Blueprint.Core.Player
             /*
              * Stop Update on Spawn
              */
-            BPF_Cropout_C.Stepped_h20_Position(Spawn.K2_GetActorLocation(), this, out var NewParam1);
+            BPF_Cropout_C.SteppedPosition(Spawn.K2_GetActorLocation(), this, out var NewParam1);
 
             var SweepHitResult = new FHitResult();
 
