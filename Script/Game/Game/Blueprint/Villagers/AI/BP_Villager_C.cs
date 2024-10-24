@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
 using Script.AnimGraphRuntime;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
@@ -12,14 +11,13 @@ using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.Characters.Animations;
 using Script.Game.Characters.Meshes.Hair;
 using Script.Game.Characters.Meshes.Tools;
-using Script.Library;
 
 namespace Script.Game.Blueprint.Villagers
 {
-    [IsOverride]
+    [Override]
     public partial class BP_Villager_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             /*
@@ -49,7 +47,7 @@ namespace Script.Game.Blueprint.Villagers
             Hair.SetCustomPrimitiveDataFloat(0, (Single)UKismetMathLibrary.RandomFloat());
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             EatTokenSource?.Cancel();
@@ -62,7 +60,7 @@ namespace Script.Game.Blueprint.Villagers
         /*
          * Return to the default behavior tree.
          */
-        [IsOverride]
+        [Override]
         public void Return_h20_To_h20_Default_h20_BT()
         {
             Change_h20_Job("Idle");
@@ -73,7 +71,7 @@ namespace Script.Game.Blueprint.Villagers
          * The Event Action is sent from the player and passes along the target for the villager.
          * Read the Tag from the target and try to change jobs based on that tag name.
          */
-        [IsOverride]
+        [Override]
         public void Action(AActor NewParam)
         {
             if (NewParam != null)
@@ -92,7 +90,7 @@ namespace Script.Game.Blueprint.Villagers
         /*
          * Change Job
          */
-        [IsOverride]
+        [Override]
         public void Change_h20_Job(FName New_h20_Job = null)
         {
             /*
@@ -105,7 +103,7 @@ namespace Script.Game.Blueprint.Villagers
             OnChangeJob();
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Play_h20_Work_h20_Anim(Double Delay = 0)
         {
             /*
@@ -142,7 +140,7 @@ namespace Script.Game.Blueprint.Villagers
             OnPlayVillagerAnim(Length);
         }
 
-        [IsOverride]
+        [Override]
         public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, Int32 Value = 0)
         {
             /*
@@ -228,7 +226,7 @@ namespace Script.Game.Blueprint.Villagers
             return null;
         }
 
-        [IsOverride]
+        [Override]
         public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out Int32 Value)
         {
             /*
@@ -260,7 +258,7 @@ namespace Script.Game.Blueprint.Villagers
             Value = CacheValue;
         }
 
-        [IsOverride]
+        [Override]
         public void Play_h20_Deliver_h20_Anim(out Double Delay)
         {
             PlayVillagerAnim(Unreal.LoadObject<AM_PutDown>(this), 1.0f);

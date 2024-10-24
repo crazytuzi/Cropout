@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AudioModulation;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Audio.DATA.ControlBus;
@@ -10,17 +9,16 @@ using Script.Game.Blueprint.Core.Save;
 using Script.Game.Blueprint.Interactable;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.UI;
-using Script.Library;
 
 namespace Script.Game.Blueprint.Core.GameMode
 {
-    [IsOverride]
+    [Override]
     public partial class BP_GI_C
     {
         /*
          * On Begin play
          */
-        [IsOverride]
+        [Override]
         public override void ReceiveInit()
         {
             /*
@@ -31,7 +29,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             LoadGame();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveShutdown()
         {
             OpenLevelTokenSource?.Cancel();
@@ -54,7 +52,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * New Level
          */
-        [IsOverride]
+        [Override]
         public void ClearSave(Boolean Clear_h20_Seed = false)
         {
             ClearSaveRef();
@@ -67,7 +65,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             bHasSave = false;
         }
 
-        [IsOverride]
+        [Override]
         public void Load_h20_Level()
         {
             bHasSave = true;
@@ -76,7 +74,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Save Game to slot
          */
-        [IsOverride]
+        [Override]
         public void Save_h20_Game()
         {
             var AsyncActionHandleSaveGame = UAsyncActionHandleSaveGame.AsyncSaveGameToSlot(this, SaveRef, "SAVE", 0);
@@ -89,7 +87,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Update Interactables
          */
-        [IsOverride]
+        [Override]
         public void Update_h20_All_h20_Interactables()
         {
             SaveRef.Interactables.Empty();
@@ -115,7 +113,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Update Resources. Expect this to trigger quite a bit. By adding a delay we can limit the number of times save is actually called.
          */
-        [IsOverride]
+        [Override]
         public void Update_h20_All_h20_Resources(TMap<E_ResourceType, Int32> NewParam = null)
         {
             SaveRef.Resources = NewParam;
@@ -128,7 +126,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Update Villagers
          */
-        [IsOverride]
+        [Override]
         public void Update_h20_All_h20_Villagers()
         {
             SaveRef.Villagers.Empty();
@@ -259,31 +257,31 @@ namespace Script.Game.Blueprint.Core.GameMode
                 0.0f);
         }
 
-        [IsOverride]
+        [Override]
         public void Get_h20_Save(out BP_SaveGM_C Save_h20_Data)
         {
             Save_h20_Data = SaveRef;
         }
 
-        [IsOverride]
+        [Override]
         public void Get_h20_All_h20_Interactables(out TArray<ST_SaveInteract> NewParam)
         {
             NewParam = SaveRef.Interactables;
         }
 
-        [IsOverride]
+        [Override]
         public void Get_h20_Seed(out FRandomStream Seed)
         {
             Seed = SaveRef.Seed;
         }
 
-        [IsOverride]
+        [Override]
         public void Check_h20_Save_h20_Bool(out Boolean Save_h20_Exist)
         {
             Save_h20_Exist = bHasSave;
         }
 
-        [IsOverride]
+        [Override]
         public void Island_h20_Seed(out FRandomStream Seed)
         {
             Seed = SaveRef.Seed;

@@ -1,14 +1,14 @@
 using Script.AIModule;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 
 namespace Script.Game.Blueprint.Villagers.AI.Tasks
 {
-    [IsOverride]
+    [Override]
     public partial class BTT_TransferResource_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveExecuteAI(AAIController OwnerController, APawn ControlledPawn)
         {
             /*

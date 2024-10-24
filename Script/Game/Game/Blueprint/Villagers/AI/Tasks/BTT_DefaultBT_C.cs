@@ -1,13 +1,13 @@
 using Script.AIModule;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 
 namespace Script.Game.Blueprint.Villagers.AI.Tasks
 {
-    [IsOverride]
+    [Override]
     public partial class BTT_DefaultBT_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveExecuteAI(AAIController OwnerController, APawn ControlledPawn)
         {
             var BPI_Villager = ControlledPawn as IBPI_Villager_C;

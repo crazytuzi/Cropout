@@ -1,20 +1,19 @@
 using System;
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.Blueprint.Core.Save;
 using Script.Game.UI.UI_Elements;
-using Script.Library;
 using Script.OnlineSubsystemUtils;
 using Script.UMG;
 
 namespace Script.Game.UI.MainMenu
 {
-    [IsOverride]
+    [Override]
     public partial class UI_MainMenu_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             BTN_Continue.OnButtonBaseClicked.Add(this, OnContinueBtnClicked);
@@ -26,7 +25,7 @@ namespace Script.Game.UI.MainMenu
             BTN_Donate.OnButtonBaseClicked.Add(this, OnDonateBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Continue.OnButtonBaseClicked.RemoveAll(this);
@@ -38,7 +37,7 @@ namespace Script.Game.UI.MainMenu
             BTN_Donate.OnButtonBaseClicked.RemoveAll(this);
         }
 
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             /*
@@ -84,7 +83,7 @@ namespace Script.Game.UI.MainMenu
             }
         }
 
-        [IsOverride]
+        [Override]
         public override UWidget BP_GetDesiredFocusTarget()
         {
             return bHasSave ? BTN_Continue : BTN_NewGame;

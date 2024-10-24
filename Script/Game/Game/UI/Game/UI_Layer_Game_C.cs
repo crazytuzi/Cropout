@@ -1,22 +1,21 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.Blueprint.Core.Player;
 using Script.Game.Blueprint.Core.Player.Input;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.UI.UI_Elements;
-using Script.Library;
 
 namespace Script.Game.UI.Game
 {
-    [IsOverride]
+    [Override]
     public partial class UI_Layer_Game_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             Resources = E_ResourceType.Food;
@@ -44,7 +43,7 @@ namespace Script.Game.UI.Game
             BTN_Pause.OnButtonBaseClicked.Add(this, OnPauseBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Pause.OnButtonBaseClicked.RemoveAll(this);

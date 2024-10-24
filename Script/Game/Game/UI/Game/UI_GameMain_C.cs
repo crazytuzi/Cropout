@@ -1,5 +1,5 @@
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.Player;
 using Script.Game.Blueprint.Core.Player.Input;
@@ -8,16 +8,16 @@ using Script.UMG;
 
 namespace Script.Game.UI.Game
 {
-    [IsOverride]
+    [Override]
     public partial class UI_GameMain_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             CUI_Button_55.OnButtonBaseClicked.Add(this, OnCUIBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             CUI_Button_55.OnButtonBaseClicked.RemoveAll(this);
@@ -27,7 +27,7 @@ namespace Script.Game.UI.Game
          * Set UI input mode.
          * Switch between Game and UI and UI only to avoid common UI eating gamepad input.
          */
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             var BP_PC = UGameplayStatics.GetPlayerController(this, 0) as BP_PC_C;

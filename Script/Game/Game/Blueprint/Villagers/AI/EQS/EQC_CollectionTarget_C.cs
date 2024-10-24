@@ -1,14 +1,13 @@
 using Script.AIModule;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 
 namespace Script.Game.Blueprint.Villagers.AI.EQS
 {
-    [IsOverride]
+    [Override]
     public partial class EQC_CollectionTarget_C
     {
-        [IsOverride]
+        [Override]
         public override void ProvideSingleLocation(UObject QuerierObject, AActor QuerierActor,
             ref FVector ResultingLocation)
         {

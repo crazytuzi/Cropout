@@ -1,13 +1,13 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.EnhancedInput;
 
 namespace Script.Game.Blueprint.Core.Player.Input
 {
-    [IsOverride]
+    [Override]
     public partial class IM_Normalize_C
     {
-        [IsOverride]
+        [Override]
         public override FInputActionValue ModifyRaw(UEnhancedPlayerInput PlayerInput, FInputActionValue CurrentValue, Single DeltaTime)
         {
             var X = 0.0;

@@ -1,15 +1,15 @@
 using Script.AIModule;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable.Building;
 using Script.Game.Blueprint.Interactable.Resources;
 
 namespace Script.Game.Blueprint.Villagers.AI.Tasks
 {
-    [IsOverride]
+    [Override]
     public partial class BTT_InitialCollectResource_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveExecuteAI(AAIController OwnerController, APawn ControlledPawn)
         {
             /*

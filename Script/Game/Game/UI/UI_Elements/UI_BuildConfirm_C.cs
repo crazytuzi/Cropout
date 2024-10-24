@@ -1,5 +1,4 @@
 using System;
-using Script.Common;
 using Script.CommonUI;
 using Script.CoreUObject;
 using Script.Engine;
@@ -10,10 +9,10 @@ using Script.UMG;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UI_BuildConfirm_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             /*
@@ -26,7 +25,7 @@ namespace Script.Game.UI.UI_Elements
             BTN_Neg.OnButtonBaseClicked.Add(this, OnCancelBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Pos.OnButtonBaseClicked.RemoveAll(this);
@@ -39,7 +38,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Position the UI below the Spawned actor
          */
-        [IsOverride]
+        [Override]
         public override void Tick(FGeometry MyGeometry, float InDeltaTime)
         {
             var BP_PC = UGameplayStatics.GetPlayerController(this, 0) as BP_PC_C;
@@ -83,7 +82,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Set input mode and Intial Position
          */
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             var BP_PC = UGameplayStatics.GetPlayerController(this, 0) as BP_PC_C;
@@ -109,7 +108,7 @@ namespace Script.Game.UI.UI_Elements
             });
         }
 
-        [IsOverride]
+        [Override]
         public override void BP_OnDeactivated()
         {
             var BP_PC = UGameplayStatics.GetPlayerController(this, 0) as BP_PC_C;

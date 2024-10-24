@@ -1,146 +1,146 @@
 #include "EnhancedInputComponent.h"
-#include "Binding/Class/TReflectionClassBuilder.inl"
+#include "Binding/Class/TBindingClassBuilder.inl"
 #include "Environment/FCSharpEnvironment.h"
-#include "Macro/BindingMacro.h"
-#include "Macro/NamespaceMacro.h"
 #include "Engine/DynamicBlueprintBinding.h"
 #include "EnhancedInputActionDelegateBinding.h"
 
-BINDING_REFLECTION_CLASS(UEnhancedInputComponent);
-
-struct FRegisterEnhancedInputComponent
+namespace
 {
-	static void GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
-	                                                  const FGarbageCollectionHandle InBindingClass,
-	                                                  MonoObject** OutValue)
+	struct FRegisterEnhancedInputComponent
 	{
-		const auto ThisClass = FCSharpEnvironment::GetEnvironment().GetObject<UBlueprintGeneratedClass>(InThisClass);
-
-		const auto BindingClass = FCSharpEnvironment::GetEnvironment().GetObject<UClass>(InBindingClass);
-
-		if (ThisClass != nullptr && BindingClass != nullptr)
+		static void GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
+		                                                  const FGarbageCollectionHandle InBindingClass,
+		                                                  MonoObject** OutValue)
 		{
-			UObject* DynamicBindingObject = UBlueprintGeneratedClass::GetDynamicBindingObject(ThisClass, BindingClass);
+			const auto ThisClass = FCSharpEnvironment::GetEnvironment().GetObject<
+				UBlueprintGeneratedClass>(InThisClass);
 
-			if (DynamicBindingObject == nullptr)
+			const auto BindingClass = FCSharpEnvironment::GetEnvironment().GetObject<UClass>(InBindingClass);
+
+			if (ThisClass != nullptr && BindingClass != nullptr)
 			{
-				DynamicBindingObject = NewObject<UObject>(GetTransientPackage(), BindingClass);
+				UObject* DynamicBindingObject = UBlueprintGeneratedClass::GetDynamicBindingObject(
+					ThisClass, BindingClass);
 
-				ThisClass->DynamicBindingObjects.Add(reinterpret_cast<UDynamicBlueprintBinding*>(DynamicBindingObject));
+				if (DynamicBindingObject == nullptr)
+				{
+					DynamicBindingObject = NewObject<UObject>(GetTransientPackage(), BindingClass);
+
+					ThisClass->DynamicBindingObjects.Add(
+						reinterpret_cast<UDynamicBlueprintBinding*>(DynamicBindingObject));
+				}
+
+				*OutValue = FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
+			}
+		}
+
+		static void BindActionImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
+		                                     const FGarbageCollectionHandle InBlueprintEnhancedInputActionBinding,
+		                                     const FGarbageCollectionHandle InObjectToBindTo,
+		                                     const FGarbageCollectionHandle InFunctionNameToBind)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UEnhancedInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				const auto BlueprintEnhancedInputActionBinding = *static_cast<FBlueprintEnhancedInputActionBinding*>(
+					FCSharpEnvironment::GetEnvironment().GetStruct(InBlueprintEnhancedInputActionBinding));
+
+				const auto ObjectToBindTo = FCSharpEnvironment::GetEnvironment().GetObject<UObject>(InObjectToBindTo);
+
+				FoundObject->BindAction(BlueprintEnhancedInputActionBinding.InputAction,
+				                        BlueprintEnhancedInputActionBinding.TriggerEvent,
+				                        ObjectToBindTo,
+				                        BlueprintEnhancedInputActionBinding.FunctionNameToBind
+				);
+
+				const auto FunctionNameToBind = FCSharpEnvironment::GetEnvironment().GetString<FName>(
+					InFunctionNameToBind);
+
+				BindActionFunction(ObjectToBindTo->GetClass(), FunctionNameToBind);
+			}
+		}
+
+		static void BindFunction(UClass* InClass, const FName* InFunctionName,
+		                         const TFunction<void(UFunction* InFunction)>& InProperty)
+		{
+			if (InClass == nullptr || InFunctionName == nullptr)
+			{
+				return;
 			}
 
-			*OutValue = FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
-		}
-	}
+			if (InClass->FindFunctionByName(*InFunctionName))
+			{
+				return;
+			}
 
-	static void BindActionImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
-	                                     const FGarbageCollectionHandle InBlueprintEnhancedInputActionBinding,
-	                                     const FGarbageCollectionHandle InObjectToBindTo,
-	                                     MonoObject* InFunctionNameToBind)
-	{
-		if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UEnhancedInputComponent>(
-			InGarbageCollectionHandle))
-		{
-			const auto BlueprintEnhancedInputActionBinding = *static_cast<FBlueprintEnhancedInputActionBinding*>(
-				FCSharpEnvironment::GetEnvironment().GetStruct(InBlueprintEnhancedInputActionBinding));
+			auto Function = NewObject<UFunction>(InClass, *InFunctionName, EObjectFlags::RF_Transient);
 
-			const auto ObjectToBindTo = FCSharpEnvironment::GetEnvironment().GetObject<UObject>(InObjectToBindTo);
+			Function->FunctionFlags = FUNC_BlueprintEvent;
 
-			FoundObject->BindAction(BlueprintEnhancedInputActionBinding.InputAction,
-			                        BlueprintEnhancedInputActionBinding.TriggerEvent,
-			                        ObjectToBindTo,
-			                        BlueprintEnhancedInputActionBinding.FunctionNameToBind
-			);
+			InProperty(Function);
 
-			const auto FunctionNameToBind = FName(UTF8_TO_TCHAR(
-				FCSharpEnvironment::GetEnvironment().GetDomain()->String_To_UTF8(FCSharpEnvironment::GetEnvironment().
-					GetDomain()->Object_To_String(InFunctionNameToBind, nullptr))));
+			Function->Bind();
 
-			BindActionFunction(ObjectToBindTo->GetClass(), FunctionNameToBind);
-		}
-	}
+			Function->StaticLink(true);
 
-	static void BindFunction(UClass* InClass, const FName& InFunctionName,
-	                         const TFunction<void(UFunction* InFunction)>& InProperty)
-	{
-		if (InClass == nullptr)
-		{
-			return;
+			InClass->AddFunctionToFunctionMap(Function, *InFunctionName);
+
+			Function->Next = InClass->Children;
+
+			InClass->Children = Function;
+
+			Function->AddToRoot();
+
+			FCSharpEnvironment::GetEnvironment().Bind(Function);
 		}
 
-		if (InClass->FindFunctionByName(InFunctionName))
+		static void BindActionFunction(UClass* InClass, const FName* InFunctionName)
 		{
-			return;
+			BindFunction(InClass, InFunctionName, [](UFunction* InFunction)
+			{
+				const auto SourceActionProperty = new FObjectProperty(InFunction, TEXT("SourceAction"),
+				                                                      RF_Public | RF_Transient);
+
+				SourceActionProperty->PropertyClass = UInputAction::StaticClass();
+
+				SourceActionProperty->SetPropertyFlags(CPF_Parm);
+
+				InFunction->AddCppProperty(SourceActionProperty);
+
+				const auto TriggeredTimeProperty = new FFloatProperty(InFunction, TEXT("TriggeredTime"),
+				                                                      RF_Public | RF_Transient);
+
+				TriggeredTimeProperty->SetPropertyFlags(CPF_Parm);
+
+				InFunction->AddCppProperty(TriggeredTimeProperty);
+
+				const auto ElapsedTimeProperty = new FFloatProperty(InFunction, TEXT("ElapsedTime"),
+				                                                    RF_Public | RF_Transient);
+
+				ElapsedTimeProperty->SetPropertyFlags(CPF_Parm);
+
+				InFunction->AddCppProperty(ElapsedTimeProperty);
+
+				const auto ActionValueProperty = new FStructProperty(InFunction, TEXT("ActionValue"),
+				                                                     RF_Public | RF_Transient);
+
+				ActionValueProperty->ElementSize = FInputActionValue::StaticStruct()->GetStructureSize();
+
+				ActionValueProperty->Struct = FInputActionValue::StaticStruct();
+
+				ActionValueProperty->SetPropertyFlags(CPF_Parm);
+
+				InFunction->AddCppProperty(ActionValueProperty);
+			});
 		}
 
-		auto Function = NewObject<UFunction>(InClass, InFunctionName, EObjectFlags::RF_Transient);
-
-		Function->FunctionFlags = FUNC_BlueprintEvent;
-
-		InProperty(Function);
-
-		Function->Bind();
-
-		Function->StaticLink(true);
-
-		InClass->AddFunctionToFunctionMap(Function, InFunctionName);
-
-		Function->Next = InClass->Children;
-
-		InClass->Children = Function;
-
-		Function->AddToRoot();
-
-		FCSharpEnvironment::GetEnvironment().Bind(Function);
-	}
-
-	static void BindActionFunction(UClass* InClass, const FName& InFunctionName)
-	{
-		BindFunction(InClass, InFunctionName, [](UFunction* InFunction)
+		FRegisterEnhancedInputComponent()
 		{
-			const auto SourceActionProperty = new FObjectProperty(InFunction, TEXT("SourceAction"),
-			                                                      RF_Public | RF_Transient);
+			TBindingClassBuilder<UEnhancedInputComponent>(NAMESPACE_LIBRARY)
+				.Function("GetDynamicBindingObject", GetDynamicBindingObjectImplementation)
+				.Function("BindAction", BindActionImplementation);
+		}
+	};
 
-			SourceActionProperty->PropertyClass = UInputAction::StaticClass();
-
-			SourceActionProperty->SetPropertyFlags(CPF_Parm);
-
-			InFunction->AddCppProperty(SourceActionProperty);
-
-			const auto TriggeredTimeProperty = new FFloatProperty(InFunction, TEXT("TriggeredTime"),
-			                                                      RF_Public | RF_Transient);
-
-			TriggeredTimeProperty->SetPropertyFlags(CPF_Parm);
-
-			InFunction->AddCppProperty(TriggeredTimeProperty);
-
-			const auto ElapsedTimeProperty = new FFloatProperty(InFunction, TEXT("ElapsedTime"),
-			                                                    RF_Public | RF_Transient);
-
-			ElapsedTimeProperty->SetPropertyFlags(CPF_Parm);
-
-			InFunction->AddCppProperty(ElapsedTimeProperty);
-
-			const auto ActionValueProperty = new FStructProperty(InFunction, TEXT("ActionValue"),
-			                                                     RF_Public | RF_Transient);
-
-			ActionValueProperty->ElementSize = FInputActionValue::StaticStruct()->GetStructureSize();
-
-			ActionValueProperty->Struct = FInputActionValue::StaticStruct();
-
-			ActionValueProperty->SetPropertyFlags(CPF_Parm);
-
-			InFunction->AddCppProperty(ActionValueProperty);
-		});
-	}
-
-	FRegisterEnhancedInputComponent()
-	{
-		TReflectionClassBuilder<UEnhancedInputComponent>(NAMESPACE_LIBRARY)
-			.Function("GetDynamicBindingObject", GetDynamicBindingObjectImplementation)
-			.Function("BindAction", BindActionImplementation)
-			.Register();
-	}
-};
-
-static FRegisterEnhancedInputComponent RegisterEnhancedInputComponent;
+	[[maybe_unused]] FRegisterEnhancedInputComponent RegisterEnhancedInputComponent;
+}

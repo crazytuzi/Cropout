@@ -9,7 +9,7 @@ public class CropoutTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		DefaultBuildSettings = BuildSettingsVersion.V4;
+		DefaultBuildSettings = BuildSettingsVersion.Latest;
 
 		ExtraModuleNames.AddRange(new string[] { "Cropout" });
 	}

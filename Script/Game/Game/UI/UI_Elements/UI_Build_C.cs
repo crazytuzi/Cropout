@@ -1,22 +1,21 @@
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.Player;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.UI.Common;
-using Script.Library;
 using Script.SlateCore;
 using Script.UMG;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UI_Build_C
     {
         /*
          * Get our placeable actors from the Data Table DT_Placeable
          */
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             Container.ClearChildren();
@@ -72,13 +71,13 @@ namespace Script.Game.UI.UI_Elements
             }
         }
 
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             BTN_Back.OnButtonBaseClicked.Add(this, OnBackBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Back.OnButtonBaseClicked.RemoveAll(this);
@@ -87,7 +86,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Set Default Focus, Disable player input so background game doesn't move
          */
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             var PlayerController = UGameplayStatics.GetPlayerController(this, 0);
@@ -105,7 +104,7 @@ namespace Script.Game.UI.UI_Elements
             (Pawn as IBPI_Player_C)?.Switch_h20_Build_h20_Mode(true);
         }
 
-        [IsOverride]
+        [Override]
         public override UWidget GetDesiredFocusTarget()
         {
             return BTN_Back;

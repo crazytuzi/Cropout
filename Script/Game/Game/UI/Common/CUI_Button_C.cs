@@ -1,12 +1,12 @@
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 
 namespace Script.Game.UI.Common
 {
-    [IsOverride]
+    [Override]
     public partial class CUI_Button_C
     {
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             ButtonTitle.SetText(Button_h20_Text);

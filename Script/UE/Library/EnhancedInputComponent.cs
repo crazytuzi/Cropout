@@ -17,10 +17,10 @@ namespace Script.EnhancedInput
         public void BindAction(UInputAction InInputAction, ETriggerEvent InTriggerEvent,
             UObject InObject, Action<FInputActionValue, Single, Single, UInputAction> InAction)
         {
-            EnhancedInputComponentImplementation
-                .EnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(
-                    InObject.GetClass().GetHandle(),
-                    UEnhancedInputActionDelegateBinding.StaticClass().GetHandle(),
+            UEnhancedInputComponentImplementation
+                .UEnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(
+                    InObject.GetClass().GarbageCollectionHandle,
+                    UEnhancedInputActionDelegateBinding.StaticClass().GarbageCollectionHandle,
                     out var EnhancedInputActionDelegateBinding
                 );
 
@@ -43,8 +43,9 @@ namespace Script.EnhancedInput
 
                 EnhancedInputActionDelegateBinding.InputActionDelegateBindings.Add(Binding);
 
-                EnhancedInputComponentImplementation.EnhancedInputComponent_BindActionImplementation(
-                    GetHandle(), Binding.GetHandle(), InObject.GetHandle(), Binding.FunctionNameToBind);
+                UEnhancedInputComponentImplementation.UEnhancedInputComponent_BindActionImplementation(
+                    GarbageCollectionHandle, Binding.GarbageCollectionHandle, InObject.GarbageCollectionHandle,
+                    Binding.FunctionNameToBind.GarbageCollectionHandle);
             }
         }
     }

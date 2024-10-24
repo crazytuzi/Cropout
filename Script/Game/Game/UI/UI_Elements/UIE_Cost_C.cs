@@ -1,17 +1,16 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.Environment.Materials.Textures;
 using Script.Game.UI.Materials.Textures;
-using Script.Library;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UIE_Cost_C
     {
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             C_Cost.SetText(Cost.ToString());

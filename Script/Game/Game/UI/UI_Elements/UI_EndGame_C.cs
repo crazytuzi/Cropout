@@ -1,19 +1,18 @@
 using System;
 using Script.AudioModulation;
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Audio.DATA.ControlBus;
 using Script.Game.Blueprint.Core.GameMode;
-using Script.Library;
 using Script.UMG;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UI_EndGame_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             /*
@@ -26,7 +25,7 @@ namespace Script.Game.UI.UI_Elements
             BTN_MainMenu.OnButtonBaseClicked.Add(this, OnMainMenuBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Retry.OnButtonBaseClicked.RemoveAll(this);
@@ -36,7 +35,7 @@ namespace Script.Game.UI.UI_Elements
             BTN_MainMenu.OnButtonBaseClicked.RemoveAll(this);
         }
 
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             var PlayerController = UGameplayStatics.GetPlayerController(this, 0);
@@ -48,7 +47,7 @@ namespace Script.Game.UI.UI_Elements
             UGameplayStatics.SetGamePaused(this, true);
         }
 
-        [IsOverride]
+        [Override]
         public override UWidget GetDesiredFocusTarget()
         {
             return BTN_Continue;

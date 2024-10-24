@@ -1,14 +1,13 @@
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable.Building;
 
 namespace Script.Game.Blueprint.Villagers.AI.EQS
 {
-    [IsOverride]
+    [Override]
     public partial class EQC_TargetTownHall_C
     {
-        [IsOverride]
+        [Override]
         public override void ProvideSingleLocation(UObject QuerierObject, AActor QuerierActor,
             ref FVector ResultingLocation)
         {

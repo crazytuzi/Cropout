@@ -1,14 +1,14 @@
 using Script.AIModule;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.NavigationSystem;
 
 namespace Script.Game.Blueprint.Villagers.AI.Tasks
 {
-    [IsOverride]
+    [Override]
     public partial class BTT_FindNearestOfClass_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveExecute(AActor OwnerActor)
         {
             /*
@@ -42,7 +42,7 @@ namespace Script.Game.Blueprint.Villagers.AI.Tasks
 
                     UGameplayStatics.GetAllActorsOfClass(
                         this,
-                        new TSubclassOf<AActor>(Class.Get()),
+                        new TSubclassOf<AActor>(Class),
                         ref OutActors);
 
                     PossibleActors = OutActors;
@@ -66,7 +66,7 @@ namespace Script.Game.Blueprint.Villagers.AI.Tasks
 
                     UGameplayStatics.GetAllActorsOfClassWithTag(
                         this,
-                        new TSubclassOf<AActor>(Class.Get()),
+                        new TSubclassOf<AActor>(Class),
                         Tag,
                         ref OutActors);
 

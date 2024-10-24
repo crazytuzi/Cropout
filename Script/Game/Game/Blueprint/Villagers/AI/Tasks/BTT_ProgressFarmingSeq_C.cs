@@ -2,16 +2,16 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable;
 
 namespace Script.Game.Blueprint.Villagers.AI.Tasks
 {
-    [IsOverride]
+    [Override]
     public partial class BTT_ProgressFarmingSeq_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveExecuteAI(AAIController OwnerController, APawn ControlledPawn)
         {
             /*

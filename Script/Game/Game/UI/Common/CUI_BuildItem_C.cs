@@ -1,20 +1,18 @@
 using System;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.Blueprint.Core.Player;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.UI.UI_Elements;
-using Script.Library;
 using Script.UMG;
 
 namespace Script.Game.UI.Common
 {
-    [IsOverride]
+    [Override]
     public partial class CUI_BuildItem_C
     {
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             /*
@@ -53,7 +51,7 @@ namespace Script.Game.UI.Common
         /*
          * Refresh Button activation based on available resources
          */
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             SetIsInteractionEnabled(ResourceCheck());
@@ -63,7 +61,7 @@ namespace Script.Game.UI.Common
             BP_GM.Update_h20_Resources.Add(this, OnUpdateResources);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             var BP_GM = UGameplayStatics.GetGameMode(this) as BP_GM_C;
@@ -74,7 +72,7 @@ namespace Script.Game.UI.Common
         /*
          * On pressed get player and trigger Begin Build, set focus back to game
          */
-        [IsOverride]
+        [Override]
         public override void BP_OnClicked()
         {
             (GetOwningPlayer().K2_GetPawn() as IBPI_Player_C)?.BeginBuild(HardClassRef, TableData.Cost);
@@ -82,7 +80,7 @@ namespace Script.Game.UI.Common
             (UGameplayStatics.GetGameMode(this) as IBPI_Player_C)?.Add_h20_UI(UI_BuildConfirm_C.StaticClass());
         }
 
-        [IsOverride]
+        [Override]
         public override void BP_OnHovered()
         {
             BaseSize.SetMinDesiredHeight(300.0f);
@@ -92,7 +90,7 @@ namespace Script.Game.UI.Common
             PlayAnimation(Highlight_In);
         }
 
-        [IsOverride]
+        [Override]
         public override void BP_OnUnhovered()
         {
             BaseSize.SetMinDesiredHeight(250.0f);

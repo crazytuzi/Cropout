@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Interactable.Extras;
@@ -13,16 +12,16 @@ namespace Script.Game.Blueprint.Interactable.Resources
      * While this class won't be used directly in game, blueprints that inherit from it will.
      * We place any functions or variables that will be used across all (or most) resources here so they can be easily shared.
      */
-    [IsOverride]
+    [Override]
     public partial class BP_Resource_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             base.ReceiveBeginPlay();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             base.ReceiveEndPlay(EndPlayReason);
@@ -34,7 +33,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
          * As resources don't require construction, we will play a small animation scaling up the mesh on begin play.
          * This can be overriden by blueprints that inherit from it if needed.
          */
-        [IsOverride]
+        [Override]
         public void Scale_h20_UP(Double Delay = 0)
         {
             Mesh.SetHiddenInGame(true);
@@ -44,7 +43,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
             OnScaleUP(Delay);
         }
 
-        [IsOverride]
+        [Override]
         public void Timeline_0_0__UpdateFunc()
         {
             var Scale = Timeline_0_0.TheTimeline.InterpFloats[0].FloatCurve
@@ -53,7 +52,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
             Mesh.SetRelativeScale3D(new FVector(Scale));
         }
 
-        [IsOverride]
+        [Override]
         public override void Interact(out Double NewParam)
         {
             base.Interact(out var NewParam1);
@@ -61,7 +60,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
             NewParam = Collection_h20_Time;
         }
 
-        [IsOverride]
+        [Override]
         public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out Int32 Value)
         {
             End_h20_Wobble();

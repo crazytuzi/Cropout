@@ -1,5 +1,5 @@
 using Script.AudioModulation;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Audio.DATA.ControlBus;
 using Script.Game.Audio.MUSIC;
@@ -8,10 +8,16 @@ using Script.Library;
 
 namespace Script.Game
 {
-    [IsOverride]
-    public partial class Village_C
+    [PathName("/Game/Village.Village_C")]
+    public partial class Village_C : ALevelScriptActor, IStaticClass
     {
-        [IsOverride]
+        public new static UClass StaticClass()
+        {
+            return StaticClassSingleton ??=
+                UObjectImplementation.UObject_StaticClassImplementation("/Game/Village.Village_C");
+        }
+
+        [Override]
         public override void ReceiveBeginPlay()
         {
             var BP_GI = UGameplayStatics.GetGameInstance(this) as BP_GI_C;
@@ -33,5 +39,7 @@ namespace Script.Game
 
             BP_GI.PlayMusic(Unreal.LoadObject<MUS_Main_MSS>(this));
         }
+
+        private static UClass StaticClassSingleton { get; set; }
     }
 }

@@ -1,13 +1,12 @@
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 
 namespace Script.Game.Blueprint.Core.Player
 {
-    [IsOverride]
+    [Override]
     public partial class BPF_Shared_C
     {
-        [IsOverride]
+        [Override]
         public static void ConvertToSteppedPos(FVector A, UObject __WorldContext, out FVector NewParam)
         {
             NewParam = new FVector

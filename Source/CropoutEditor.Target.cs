@@ -9,7 +9,7 @@ public class CropoutEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		DefaultBuildSettings = BuildSettingsVersion.V4;
+		DefaultBuildSettings = BuildSettingsVersion.Latest;
 
 		ExtraModuleNames.AddRange(new string[] { "Cropout" });
 	}

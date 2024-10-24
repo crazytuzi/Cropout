@@ -1,13 +1,13 @@
-using Script.Common;
 using Script.CommonUI;
+using Script.CoreUObject;
 using Script.UMG;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UI_Prompt_C
     {
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             BTN_Pos.OnButtonBaseClicked.Add(this, OnConfirmBtnClicked);
@@ -15,7 +15,7 @@ namespace Script.Game.UI.UI_Elements
             BTN_Neg.OnButtonBaseClicked.Add(this, OnBackBtnClicked);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             BTN_Pos.OnButtonBaseClicked.RemoveAll(this);
@@ -26,7 +26,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Set Text & Focus
          */
-        [IsOverride]
+        [Override]
         public override void BP_OnActivated()
         {
             GetDesiredFocusTarget().SetFocus();
@@ -34,7 +34,7 @@ namespace Script.Game.UI.UI_Elements
             Title.SetText(Prompt_h20_Question);
         }
 
-        [IsOverride]
+        [Override]
         public override UWidget BP_GetDesiredFocusTarget()
         {
             return BTN_Neg;

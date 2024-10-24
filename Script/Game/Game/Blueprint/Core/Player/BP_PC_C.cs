@@ -1,15 +1,15 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.Player.Input;
 using Script.InputCore;
 
 namespace Script.Game.Blueprint.Core.Player
 {
-    [IsOverride]
+    [Override]
     public partial class BP_PC_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             /*
@@ -22,7 +22,7 @@ namespace Script.Game.Blueprint.Core.Player
             InputComponent.BindAction("Touch Detect", EInputEvent.IE_Pressed, this, TouchDetect_Pressed);
         }
 
-        [IsOverride]
+        [Override]
         private void KeyDetect_Pressed(FKey Key)
         {
             if (UKismetInputLibrary.Key_IsGamepadKey(Key))
@@ -36,7 +36,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [IsOverride]
+        [Override]
         private void MouseMove(Single AxisValue)
         {
             if (AxisValue != 0.0)
@@ -50,7 +50,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [IsOverride]
+        [Override]
         private void TouchDetect_Pressed(FKey Key)
         {
             if (InputType != E_InputType.Touch)

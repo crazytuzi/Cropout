@@ -1,11 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Environment.Materials;
-using Script.Library;
 
 namespace Script.Game.Blueprint.Interactable
 {
@@ -15,10 +13,10 @@ namespace Script.Game.Blueprint.Interactable
      * like their display name, spacing overide for the navmesh and meshes to use.
      * There is also Box collider, the sizing is set in construction script.
      */
-    [IsOverride]
+    [Override]
     public partial class BP_Interactable_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             TokenSource = new CancellationTokenSource();
@@ -26,13 +24,13 @@ namespace Script.Game.Blueprint.Interactable
             OnNextTick();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             TokenSource?.Cancel();
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Set_h20_Progressions_h20_State(Double Progression = 0)
         {
             /*
@@ -56,7 +54,7 @@ namespace Script.Game.Blueprint.Interactable
             }
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Placement_h20_Mode()
         {
             Enable_h20_Ground_h20_Blend = false;
@@ -66,13 +64,13 @@ namespace Script.Game.Blueprint.Interactable
             Tags.Add("PlacementMode");
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Interact(out Double NewParam)
         {
             NewParam = 0.0;
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Timeline_0__UpdateFunc()
         {
             var Wobble = Timeline_0.TheTimeline.InterpFloats[0].FloatCurve

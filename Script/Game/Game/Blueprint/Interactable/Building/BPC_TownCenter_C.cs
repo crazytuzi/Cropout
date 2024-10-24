@@ -1,14 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 
 namespace Script.Game.Blueprint.Interactable.Building
 {
-    [IsOverride]
+    [Override]
     public partial class BPC_TownCenter_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             base.ReceiveBeginPlay();
@@ -18,7 +18,7 @@ namespace Script.Game.Blueprint.Interactable.Building
             OnBeginPlay();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             base.ReceiveEndPlay(EndPlayReason);

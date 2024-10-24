@@ -1,18 +1,17 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.Environment.Materials.Textures;
 using Script.Game.UI.Materials.Textures;
-using Script.Library;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UIE_Resource_C
     {
-        [IsOverride]
+        [Override]
         public override void OnInitialized()
         {
             var BP_GM = UGameplayStatics.GetGameMode(this) as BP_GM_C;
@@ -20,7 +19,7 @@ namespace Script.Game.UI.UI_Elements
             BP_GM.Update_h20_Resources.Add(this, OnUpdateResources);
         }
 
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             UTexture2D SoftTexture = null;
@@ -45,7 +44,7 @@ namespace Script.Game.UI.UI_Elements
             Image_24.SetBrushFromTexture(SoftTexture);
         }
 
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             var BPI_Resource = UGameplayStatics.GetGameMode(this) as IBPI_Resource_C;

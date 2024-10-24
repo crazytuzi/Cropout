@@ -1,32 +1,32 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 
 namespace Script.Game.Blueprint.Interactable.Building
 {
-    [IsOverride]
+    [Override]
     public partial class BPC_House_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             base.ReceiveBeginPlay();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveActorBeginOverlap(AActor OtherActor)
         {
             base.ReceiveActorBeginOverlap(OtherActor);
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveTick(float DeltaSeconds)
         {
             base.ReceiveTick(DeltaSeconds);
         }
 
-        [IsOverride]
+        [Override]
         protected override void ConstructionComplete()
         {
             base.ConstructionComplete();
@@ -34,7 +34,7 @@ namespace Script.Game.Blueprint.Interactable.Building
             SpawnVillagers();
         }
 
-        [IsOverride]
+        [Override]
         public override void Placement_h20_Mode()
         {
             base.Placement_h20_Mode();

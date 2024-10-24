@@ -1,5 +1,5 @@
-using Script.Common;
 using Script.CoreUObject;
+using Script.Cropout;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.Blueprint.Interactable.Extras;
@@ -7,10 +7,10 @@ using Script.InputCore;
 
 namespace Script.Game.Blueprint.Core.Extras
 {
-    [IsOverride]
+    [Override]
     public partial class BPC_Cheats_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             /*
@@ -29,42 +29,42 @@ namespace Script.Game.Blueprint.Core.Extras
             GetOwner().InputComponent.BindKey(EKeys.Six, EInputEvent.IE_Pressed, this, Six_Pressed);
         }
 
-        [IsOverride]
+        [Override]
         private void One_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Add_h20_Resource(
                 E_ResourceType.Food, 15);
         }
 
-        [IsOverride]
+        [Override]
         private void Two_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Add_h20_Resource(
                 E_ResourceType.Wood, 15);
         }
 
-        [IsOverride]
+        [Override]
         private void Three_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Add_h20_Resource(
                 E_ResourceType.Stone, 15);
         }
 
-        [IsOverride]
+        [Override]
         private void Four_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Remove_h20_Target_h20_Resource(
                 E_ResourceType.Food, 15);
         }
 
-        [IsOverride]
+        [Override]
         private void Five_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Remove_h20_Target_h20_Resource(
                 E_ResourceType.Wood, 15);
         }
 
-        [IsOverride]
+        [Override]
         private void Six_Pressed(FKey Key)
         {
             (UGameplayStatics.GetGameMode(this) as IBPI_Resource_C)?.Remove_h20_Target_h20_Resource(

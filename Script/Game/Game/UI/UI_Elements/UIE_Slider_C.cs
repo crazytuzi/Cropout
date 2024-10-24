@@ -1,29 +1,29 @@
 using System;
-using Script.Common;
+using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
 
 namespace Script.Game.UI.UI_Elements
 {
-    [IsOverride]
+    [Override]
     public partial class UIE_Slider_C
     {
         /*
          * Set Initial Text
          */
-        [IsOverride]
+        [Override]
         public override void PreConstruct(bool IsDesignTime)
         {
             MixDescriptor.SetText(Sound_h20_Class_h20_Title);
         }
 
-        [IsOverride]
+        [Override]
         public override void Construct()
         {
             Slider_67.OnValueChanged.Add(this, OnValueChanged);
         }
 
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             Slider_67.OnValueChanged.RemoveAll(this);

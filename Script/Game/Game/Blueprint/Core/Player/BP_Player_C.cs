@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.EnhancedInput;
@@ -14,19 +13,18 @@ using Script.Game.Blueprint.Interactable.Extras;
 using Script.Game.Blueprint.Villagers;
 using Script.Game.VFX;
 using Script.InputCore;
-using Script.Library;
 using Script.NavigationSystem;
 using Script.Niagara;
 
 namespace Script.Game.Blueprint.Core.Player
 {
-    [IsOverride]
+    [Override]
     public partial class BP_Player_C
     {
         /*
          * On Begin Play start bound check
          */
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             UpdateZoom();
@@ -81,7 +79,7 @@ namespace Script.Game.Blueprint.Core.Player
             EnhancedInputComponent.BindAction<IA_DragMove>(ETriggerEvent.Triggered, this, IADragMoveTriggered);
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             MovTrackingTokenSource?.Cancel();
@@ -96,8 +94,8 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Create Spawnable
          */
-        [IsOverride]
-        public virtual void BeginBuild(TSubclassOf<BP_Interactable_C> Target_h20_Class = null,
+        [Override]
+        public virtual void BeginBuild(UClass Target_h20_Class = null,
             TMap<E_ResourceType, Int32> Resource_h20_Cost = null)
         {
             Target_h20_Spawn_h20_Class = Target_h20_Class;
@@ -107,7 +105,7 @@ namespace Script.Game.Blueprint.Core.Player
             Spawn?.K2_DestroyActor();
 
             Spawn = GetWorld().SpawnActor<BP_Interactable_C>(
-                Target_h20_Spawn_h20_Class.Get(),
+                Target_h20_Spawn_h20_Class,
                 new FTransform
                 {
                     Translation = K2_GetActorLocation(),
@@ -123,7 +121,7 @@ namespace Script.Game.Blueprint.Core.Player
          * Bind 'Input Switch' event from player controller to pawn function.
          * Set mapping context
          */
-        [IsOverride]
+        [Override]
         public override void ReceivePossessed(AController NewController)
         {
             (NewController as BP_PC_C)?.KeySwitch.Add(this, InputSwitch);
@@ -132,7 +130,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * When hovering over an actor, check if that actor is the closest available actor in player collision.
          */
-        [IsOverride]
+        [Override]
         public override void ReceiveActorBeginOverlap(AActor OtherActor)
         {
             if (HoverActor == null)
@@ -145,7 +143,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveActorEndOverlap(AActor OtherActor)
         {
             var OverlappingActors = new TArray<AActor>();
@@ -202,14 +200,14 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [IsOverride]
+        [Override]
         private void IABuildMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             UpdateBuildAsset();
         }
 
-        [IsOverride]
+        [Override]
         private void IABuildMoveCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -223,14 +221,14 @@ namespace Script.Game.Blueprint.Core.Player
             K2_SetActorLocation(NewParam1, false, ref SweepHitResult, false);
         }
 
-        [IsOverride]
+        [Override]
         private void IAVillagerTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             Villager_h20_Action = HoverActor;
         }
 
-        [IsOverride]
+        [Override]
         private void IAVillagerStarted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -264,7 +262,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [IsOverride]
+        [Override]
         private void IAVillagerCanceled(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -300,7 +298,7 @@ namespace Script.Game.Blueprint.Core.Player
             Villager_h20_Action = null;
         }
 
-        [IsOverride]
+        [Override]
         private void IAVillagerCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -339,7 +337,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Movement and Rotation using WASD,QE or Controller
          */
-        [IsOverride]
+        [Override]
         private void IAMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -350,7 +348,7 @@ namespace Script.Game.Blueprint.Core.Player
             AddMovementInput(GetActorRightVector(), (Single)Vector2D.X);
         }
 
-        [IsOverride]
+        [Override]
         private void IASpinTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -370,7 +368,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Zoom (Also effects player move speed)
          */
-        [IsOverride]
+        [Override]
         private void IAZoomTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -384,7 +382,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Drag move
          */
-        [IsOverride]
+        [Override]
         private void IADragMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
@@ -827,7 +825,7 @@ namespace Script.Game.Blueprint.Core.Player
             if (Can_h20_Drop)
             {
                 var BP_Interactable = GetWorld()
-                    .SpawnActor<BP_Interactable_C>(Target_h20_Spawn_h20_Class.Get(), Spawn.GetTransform());
+                    .SpawnActor<BP_Interactable_C>(Target_h20_Spawn_h20_Class, Spawn.GetTransform());
 
                 BP_Interactable.Progression_h20_State = 0.0;
 
@@ -961,7 +959,7 @@ namespace Script.Game.Blueprint.Core.Player
             return GetController() as APlayerController;
         }
 
-        [IsOverride]
+        [Override]
         public virtual void Switch_h20_Build_h20_Mode(Boolean Switch_h20_To_h20_Build_h20_Mode_h3F_ = false)
         {
             var PlayerController = GetPlayerController();

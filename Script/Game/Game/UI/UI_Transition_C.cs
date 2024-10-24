@@ -1,15 +1,15 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
+using Script.CoreUObject;
 using Script.UMG;
 
 namespace Script.Game.UI
 {
-    [IsOverride]
+    [Override]
     public partial class UI_Transition_C
     {
-        [IsOverride]
+        [Override]
         public override void Destruct()
         {
             TokenSource?.Cancel();

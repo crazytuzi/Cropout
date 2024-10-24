@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
 using Script.AudioModulation;
-using Script.Common;
-using Script.CommonUI;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Audio.DATA.ControlBus;
@@ -16,18 +14,17 @@ using Script.Game.Blueprint.Villagers;
 using Script.Game.UI.Game;
 using Script.IslandGenerator.Misc;
 using Script.IslandGenerator.Spawner;
-using Script.Library;
 using Script.NavigationSystem;
 
 namespace Script.Game.Blueprint.Core.GameMode
 {
-    [IsOverride]
+    [Override]
     public partial class BP_GM_C
     {
         /*
          * Start
          */
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             /*
@@ -57,7 +54,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             UI_HUD.ActivateWidget();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             IslandGenCompleteTokenSource?.Cancel();
@@ -70,7 +67,7 @@ namespace Script.Game.Blueprint.Core.GameMode
          * If so, load data from Save file.
          * If not, being spawning assets
          */
-        [IsOverride]
+        [Override]
         public void Island_h20_Gen_h20_Complete()
         {
             IslandGenCompleteTokenSource = new CancellationTokenSource();
@@ -81,7 +78,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * Adds a resource value to the resource Map
          */
-        [IsOverride]
+        [Override]
         public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, Int32 Value = 0)
         {
             if (!Resources.Contains(Resource))
@@ -114,13 +111,13 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * UI Interactions
          */
-        [IsOverride]
-        public void Add_h20_UI(TSubclassOf<UCommonActivatableWidget> NewParam)
+        [Override]
+        public void Add_h20_UI(UClass NewParam)
         {
             UI_HUD.AddStackItem(NewParam);
         }
 
-        [IsOverride]
+        [Override]
         public void Remove_h20_Current_h20_UI_h20_Layer()
         {
             UI_HUD.PullCurrentActiveWidget();
@@ -184,7 +181,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             foreach (var SaveInteract in NewParam)
             {
                 var BP_Interactable =
-                    GetWorld().SpawnActor<BP_Interactable_C>(SaveInteract.Type.Get(), SaveInteract.Location);
+                    GetWorld().SpawnActor<BP_Interactable_C>(SaveInteract.Type, SaveInteract.Location);
 
                 BP_Interactable.Progression_h20_State = 0.0f;
 
@@ -192,7 +189,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
                 BP_Interactable.Set_h20_Progressions_h20_State(SaveInteract.Health);
 
-                if (SaveInteract.Type.Get() == TownHall_Ref)
+                if (SaveInteract.Type == TownHall_Ref)
                 {
                     Town_h20_Hall = BP_Interactable;
                 }
@@ -207,7 +204,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
             foreach (var Villager in Save_h20_Data.Villagers)
             {
-                var BPI_Villager = UAIBlueprintHelperLibrary.SpawnAIFromClass(this, Villager_Ref.Get(), null,
+                var BPI_Villager = UAIBlueprintHelperLibrary.SpawnAIFromClass(this, Villager_Ref, null,
                     new FVector { X = Villager.Location.X, Y = Villager.Location.Y, Z = 42.0f }) as IBPI_Villager_C;
 
                 BPI_Villager.Change_h20_Job(Villager.Task);
@@ -242,12 +239,12 @@ namespace Script.Game.Blueprint.Core.GameMode
                 new FVector { X = Result.X, Y = Result.Y }, ref RandomLocation,
                 500.0f, null, null);
 
-            UAIBlueprintHelperLibrary.SpawnAIFromClass(this, Villager_Ref.Get(), null, RandomLocation);
+            UAIBlueprintHelperLibrary.SpawnAIFromClass(this, Villager_Ref, null, RandomLocation);
 
             Villager_h20_Count++;
         }
 
-        [IsOverride]
+        [Override]
         public void Check_h20_Resource(E_ResourceType NewParam1, out Boolean NewParam, out Int32 NewParam3)
         {
             if (Resources.Contains(NewParam1))
@@ -264,7 +261,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        [IsOverride]
+        [Override]
         public void Remove_h20_Target_h20_Resource(E_ResourceType NewParam = E_ResourceType.None, Int32 NewParam1 = 0)
         {
             /*
@@ -286,7 +283,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        [IsOverride]
+        [Override]
         public void Get_h20_Current_h20_Resources(out TMap<E_ResourceType, Int32> Resources)
         {
             Resources = this.Resources;

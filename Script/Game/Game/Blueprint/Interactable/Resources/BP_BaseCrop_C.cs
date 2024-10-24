@@ -1,23 +1,22 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.Save;
 
 namespace Script.Game.Blueprint.Interactable.Resources
 {
-    [IsOverride]
+    [Override]
     public partial class BP_BaseCrop_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             base.ReceiveBeginPlay();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveEndPlay(EEndPlayReason EndPlayReason)
         {
             base.ReceiveEndPlay(EndPlayReason);
@@ -27,19 +26,19 @@ namespace Script.Game.Blueprint.Interactable.Resources
             SetReadyTokenSource?.Cancel();
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveActorBeginOverlap(AActor OtherActor)
         {
             base.ReceiveActorBeginOverlap(OtherActor);
         }
 
-        [IsOverride]
+        [Override]
         public override void ReceiveTick(float DeltaSeconds)
         {
             base.ReceiveTick(DeltaSeconds);
         }
 
-        [IsOverride]
+        [Override]
         public override void Set_h20_Progressions_h20_State(Double Progression = 0)
         {
             base.Set_h20_Progressions_h20_State(Progression);
@@ -47,7 +46,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
             SetReady();
         }
 
-        [IsOverride]
+        [Override]
         public override void Interact(out Double NewParam)
         {
             base.Interact(out var NewParam1);
@@ -133,7 +132,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
             Pop_h20_Plot.PlayFromStart();
         }
 
-        [IsOverride]
+        [Override]
         public void Pop_h20_Plot__UpdateFunc()
         {
             var Plot = Pop_h20_Plot.TheTimeline.InterpFloats[0].FloatCurve

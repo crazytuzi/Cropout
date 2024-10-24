@@ -1,6 +1,5 @@
 using System;
 using Script.AudioModulation;
-using Script.Common;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Audio.DATA.ControlBus;
@@ -8,15 +7,14 @@ using Script.Game.Audio.MUSIC;
 using Script.Game.Blueprint.Core.Extras;
 using Script.Game.Blueprint.Core.GameMode;
 using Script.Game.UI.MainMenu;
-using Script.Library;
 using Script.OnlineSubsystemUtils;
 
 namespace Script.Game.Blueprint.Core.MainMenu
 {
-    [IsOverride]
+    [Override]
     public partial class BP_MainMenuGM_C
     {
-        [IsOverride]
+        [Override]
         public override void ReceiveBeginPlay()
         {
             /*
