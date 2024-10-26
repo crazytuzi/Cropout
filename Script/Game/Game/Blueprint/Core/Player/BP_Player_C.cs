@@ -32,51 +32,6 @@ namespace Script.Game.Blueprint.Core.Player
             MovTrackingTokenSource = new CancellationTokenSource();
 
             OnMovTracking();
-
-            var PlayerController = GetPlayerController();
-
-            var EnhancedInputLocalPlayerSubsystem = USubsystemBlueprintLibrary.GetLocalPlayerSubsystem(
-                PlayerController,
-                UEnhancedInputLocalPlayerSubsystem.StaticClass()
-            ) as UEnhancedInputLocalPlayerSubsystem;
-
-            EnhancedInputLocalPlayerSubsystem.AddMappingContext(Unreal.LoadObject<IMC_BaseInput>(this), 0);
-
-            EnhancedInputLocalPlayerSubsystem.AddMappingContext(Unreal.LoadObject<IMC_Villager_Mode>(this), 0);
-
-            var EnhancedInputComponent = InputComponent as UEnhancedInputComponent;
-
-            /*
-             * Build Mode
-             */
-            EnhancedInputComponent.BindAction<IA_Build_Move>(ETriggerEvent.Triggered, this, IABuildMoveTriggered);
-
-            EnhancedInputComponent.BindAction<IA_Build_Move>(ETriggerEvent.Completed, this, IABuildMoveCompleted);
-
-            /*
-             * Villager Mode
-             */
-            EnhancedInputComponent.BindAction<IA_Villager>(ETriggerEvent.Triggered, this, IAVillagerTriggered);
-
-            EnhancedInputComponent.BindAction<IA_Villager>(ETriggerEvent.Started, this, IAVillagerStarted);
-
-            EnhancedInputComponent.BindAction<IA_Villager>(ETriggerEvent.Canceled, this, IAVillagerCanceled);
-
-            EnhancedInputComponent.BindAction<IA_Villager>(ETriggerEvent.Completed, this, IAVillagerCompleted);
-
-            /*
-             * You can split off groups of logic into multiple Graphs. This helps keep blueprints more contained and easier to find.
-             */
-            EnhancedInputComponent.BindAction<IA_Move>(ETriggerEvent.Triggered, this, IAMoveTriggered);
-
-            EnhancedInputComponent.BindAction<IA_Spin>(ETriggerEvent.Triggered, this, IASpinTriggered);
-
-            EnhancedInputComponent.BindAction<IA_Zoom>(ETriggerEvent.Triggered, this, IAZoomTriggered);
-
-            /*
-             * Contextual Movement
-             */
-            EnhancedInputComponent.BindAction<IA_DragMove>(ETriggerEvent.Triggered, this, IADragMoveTriggered);
         }
 
         [Override]
@@ -200,15 +155,13 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [Override]
-        private void IABuildMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IABuildMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             UpdateBuildAsset();
         }
 
-        [Override]
-        private void IABuildMoveCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IABuildMoveCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -221,15 +174,13 @@ namespace Script.Game.Blueprint.Core.Player
             K2_SetActorLocation(NewParam1, false, ref SweepHitResult, false);
         }
 
-        [Override]
-        private void IAVillagerTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             Villager_h20_Action = HoverActor;
         }
 
-        [Override]
-        private void IAVillagerStarted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerStarted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -262,8 +213,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        [Override]
-        private void IAVillagerCanceled(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerCanceled(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -298,8 +248,7 @@ namespace Script.Game.Blueprint.Core.Player
             Villager_h20_Action = null;
         }
 
-        [Override]
-        private void IAVillagerCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -337,8 +286,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Movement and Rotation using WASD,QE or Controller
          */
-        [Override]
-        private void IAMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             var Vector2D = UEnhancedInputLibrary.Conv_InputActionValueToAxis2D(ActionValue);
@@ -348,8 +296,7 @@ namespace Script.Game.Blueprint.Core.Player
             AddMovementInput(GetActorRightVector(), (Single)Vector2D.X);
         }
 
-        [Override]
-        private void IASpinTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IASpinTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             var SweepHitResult = new FHitResult();
@@ -368,8 +315,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Zoom (Also effects player move speed)
          */
-        [Override]
-        private void IAZoomTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAZoomTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             ZoomDirection = UEnhancedInputLibrary.Conv_InputActionValueToAxis1D(ActionValue);
@@ -382,8 +328,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Drag move
          */
-        [Override]
-        private void IADragMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IADragMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
             UInputAction SourceAction)
         {
             if (SingleTouchCheck())

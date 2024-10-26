@@ -7,10 +7,9 @@ namespace Script.Library
     public static partial class UInputComponentImplementation
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
-        public static extern void UInputComponent_GetDynamicBindingObjectImplementation<T>(
+        public static extern T UInputComponent_GetDynamicBindingObjectImplementation<T>(
             IntPtr InThisClass,
-            IntPtr InBindingClass,
-            out T OutValue)
+            IntPtr InBindingClass)
             where T : UDynamicBlueprintBinding;
 
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -54,5 +53,24 @@ namespace Script.Library
             IntPtr InInputVectorAxisDelegateBinding,
             IntPtr InObjectToBindTo,
             IntPtr InFunctionNameToBind);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void UInputComponent_RemoveActionBindingImplementation(
+            IntPtr InObject,
+            IntPtr InActionName,
+            EInputEvent InInputEvent);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void UInputComponent_RemoveAxisBindingImplementation(
+            IntPtr InObject,
+            IntPtr InAxisName);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void UInputComponent_ClearBindingValuesImplementation(
+            IntPtr InObject);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern void UInputComponent_ClearAxisBindingsImplementation(
+            IntPtr InObject);
     }
 }

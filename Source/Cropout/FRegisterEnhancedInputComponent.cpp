@@ -1,16 +1,44 @@
 #include "EnhancedInputComponent.h"
-#include "Binding/Class/TBindingClassBuilder.inl"
-#include "Environment/FCSharpEnvironment.h"
 #include "Engine/DynamicBlueprintBinding.h"
 #include "EnhancedInputActionDelegateBinding.h"
+#include "Binding/Class/TBindingClassBuilder.inl"
+#include "Environment/FCSharpEnvironment.h"
+#include "Macro/NamespaceMacro.h"
+
+BINDING_CLASS(FInputBindingHandle)
+
+BINDING_CLASS(FEnhancedInputActionEventBinding)
 
 namespace
 {
+	struct FRegisterInputBindingHandle
+	{
+		FRegisterInputBindingHandle()
+		{
+			TBindingClassBuilder<FInputBindingHandle, false>(NAMESPACE_BINDING)
+				.Function("GetHandle", BINDING_FUNCTION(&FInputBindingHandle::GetHandle));
+		}
+	};
+
+	[[maybe_unused]] FRegisterInputBindingHandle RegisterInputBindingHandle;
+
+	struct FRegisterEnhancedInputActionEventBinding
+	{
+		FRegisterEnhancedInputActionEventBinding()
+		{
+			TBindingClassBuilder<FEnhancedInputActionEventBinding, false>(NAMESPACE_BINDING)
+				.Inheritance<FInputBindingHandle, false>(NAMESPACE_BINDING)
+				.Function("GetAction", BINDING_FUNCTION(&FEnhancedInputActionEventBinding::GetAction))
+				.Function("GetTriggerEvent", BINDING_FUNCTION(&FEnhancedInputActionEventBinding::GetTriggerEvent));
+		}
+	};
+
+	[[maybe_unused]] FRegisterEnhancedInputActionEventBinding RegisterEnhancedInputActionEventBinding;
+
 	struct FRegisterEnhancedInputComponent
 	{
-		static void GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
-		                                                  const FGarbageCollectionHandle InBindingClass,
-		                                                  MonoObject** OutValue)
+		static MonoObject* GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
+		                                                         const FGarbageCollectionHandle InBindingClass)
 		{
 			const auto ThisClass = FCSharpEnvironment::GetEnvironment().GetObject<
 				UBlueprintGeneratedClass>(InThisClass);
@@ -30,34 +58,10 @@ namespace
 						reinterpret_cast<UDynamicBlueprintBinding*>(DynamicBindingObject));
 				}
 
-				*OutValue = FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
+				return FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
 			}
-		}
 
-		static void BindActionImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
-		                                     const FGarbageCollectionHandle InBlueprintEnhancedInputActionBinding,
-		                                     const FGarbageCollectionHandle InObjectToBindTo,
-		                                     const FGarbageCollectionHandle InFunctionNameToBind)
-		{
-			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UEnhancedInputComponent>(
-				InGarbageCollectionHandle))
-			{
-				const auto BlueprintEnhancedInputActionBinding = *static_cast<FBlueprintEnhancedInputActionBinding*>(
-					FCSharpEnvironment::GetEnvironment().GetStruct(InBlueprintEnhancedInputActionBinding));
-
-				const auto ObjectToBindTo = FCSharpEnvironment::GetEnvironment().GetObject<UObject>(InObjectToBindTo);
-
-				FoundObject->BindAction(BlueprintEnhancedInputActionBinding.InputAction,
-				                        BlueprintEnhancedInputActionBinding.TriggerEvent,
-				                        ObjectToBindTo,
-				                        BlueprintEnhancedInputActionBinding.FunctionNameToBind
-				);
-
-				const auto FunctionNameToBind = FCSharpEnvironment::GetEnvironment().GetString<FName>(
-					InFunctionNameToBind);
-
-				BindActionFunction(ObjectToBindTo->GetClass(), FunctionNameToBind);
-			}
+			return nullptr;
 		}
 
 		static void BindFunction(UClass* InClass, const FName* InFunctionName,
@@ -91,7 +95,12 @@ namespace
 
 			Function->AddToRoot();
 
-			FCSharpEnvironment::GetEnvironment().Bind(Function);
+			FCSharpEnvironment::GetEnvironment().GetBind()->Bind(FCSharpEnvironment::GetEnvironment().GetDomain(),
+			                                                     FCSharpEnvironment::GetEnvironment().GetRegistry<
+				                                                     FClassRegistry>()->GetClassDescriptor(InClass),
+			                                                     InClass,
+			                                                     Function
+			);
 		}
 
 		static void BindActionFunction(UClass* InClass, const FName* InFunctionName)
@@ -134,11 +143,66 @@ namespace
 			});
 		}
 
+		static MonoObject* BindActionImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
+		                                            const FGarbageCollectionHandle
+		                                            InBlueprintEnhancedInputActionBinding,
+		                                            const FGarbageCollectionHandle InObjectToBindTo,
+		                                            const FGarbageCollectionHandle InFunctionNameToBind)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UEnhancedInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				const auto BlueprintEnhancedInputActionBinding = *static_cast<FBlueprintEnhancedInputActionBinding*>(
+					FCSharpEnvironment::GetEnvironment().GetStruct(InBlueprintEnhancedInputActionBinding));
+
+				const auto ObjectToBindTo = FCSharpEnvironment::GetEnvironment().GetObject<UObject>(InObjectToBindTo);
+
+				const auto& EnhancedInputActionEventBinding = FoundObject->BindAction(
+					BlueprintEnhancedInputActionBinding.InputAction,
+					BlueprintEnhancedInputActionBinding.TriggerEvent,
+					ObjectToBindTo,
+					BlueprintEnhancedInputActionBinding.FunctionNameToBind
+				);
+
+				const auto FunctionNameToBind = FCSharpEnvironment::GetEnvironment().GetString<FName>(
+					InFunctionNameToBind);
+
+				BindActionFunction(ObjectToBindTo->GetClass(), FunctionNameToBind);
+
+				const auto FoundMonoClass = TPropertyClass<
+					FEnhancedInputActionEventBinding, FEnhancedInputActionEventBinding>::Get();
+
+				const auto SrcMonoObject = FCSharpEnvironment::GetEnvironment().GetDomain()->Object_New(FoundMonoClass);
+
+				FCSharpEnvironment::GetEnvironment().AddBindingReference<
+					std::decay_t<FEnhancedInputActionEventBinding>, false>(
+					SrcMonoObject, &EnhancedInputActionEventBinding);
+
+				return SrcMonoObject;
+			}
+
+			return nullptr;
+		}
+
+		static void RemoveActionImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
+		                                       const FGarbageCollectionHandle InEnhancedInputActionEventBinding)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UEnhancedInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				const auto EnhancedInputActionEventBinding = FCSharpEnvironment::GetEnvironment().GetBinding<
+					FEnhancedInputActionEventBinding>(InEnhancedInputActionEventBinding);
+
+				FoundObject->RemoveBinding(*EnhancedInputActionEventBinding);
+			}
+		}
+
 		FRegisterEnhancedInputComponent()
 		{
 			TBindingClassBuilder<UEnhancedInputComponent>(NAMESPACE_LIBRARY)
 				.Function("GetDynamicBindingObject", GetDynamicBindingObjectImplementation)
-				.Function("BindAction", BindActionImplementation);
+				.Function("BindAction", BindActionImplementation)
+				.Function("RemoveAction", RemoveActionImplementation);
 		}
 	};
 

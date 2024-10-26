@@ -6,23 +6,21 @@ namespace Script.EnhancedInput
 {
     public partial class UEnhancedInputComponent
     {
-        public void BindAction<T>(ETriggerEvent InTriggerEvent,
+        public FEnhancedInputActionEventBinding BindAction<T>(ETriggerEvent InTriggerEvent,
             UObject InObject,
             Action<FInputActionValue, Single, Single, UInputAction> InAction)
             where T : UInputAction, IStaticClass
         {
-            BindAction(Unreal.LoadObject<T>(this), InTriggerEvent, InObject, InAction);
+            return BindAction(Unreal.LoadObject<T>(this), InTriggerEvent, InObject, InAction);
         }
 
-        public void BindAction(UInputAction InInputAction, ETriggerEvent InTriggerEvent,
+        public FEnhancedInputActionEventBinding BindAction(UInputAction InInputAction, ETriggerEvent InTriggerEvent,
             UObject InObject, Action<FInputActionValue, Single, Single, UInputAction> InAction)
         {
-            UEnhancedInputComponentImplementation
+            var EnhancedInputActionDelegateBinding = UEnhancedInputComponentImplementation
                 .UEnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(
                     InObject.GetClass().GarbageCollectionHandle,
-                    UEnhancedInputActionDelegateBinding.StaticClass().GarbageCollectionHandle,
-                    out var EnhancedInputActionDelegateBinding
-                );
+                    UEnhancedInputActionDelegateBinding.StaticClass().GarbageCollectionHandle);
 
             if (EnhancedInputActionDelegateBinding != null)
             {
@@ -30,7 +28,7 @@ namespace Script.EnhancedInput
                 {
                     if (InputActionDelegate.FunctionNameToBind.ToString() == InAction.Method.Name)
                     {
-                        return;
+                        return null;
                     }
                 }
 
@@ -43,10 +41,37 @@ namespace Script.EnhancedInput
 
                 EnhancedInputActionDelegateBinding.InputActionDelegateBindings.Add(Binding);
 
-                UEnhancedInputComponentImplementation.UEnhancedInputComponent_BindActionImplementation(
+                return UEnhancedInputComponentImplementation.UEnhancedInputComponent_BindActionImplementation(
                     GarbageCollectionHandle, Binding.GarbageCollectionHandle, InObject.GarbageCollectionHandle,
                     Binding.FunctionNameToBind.GarbageCollectionHandle);
             }
+
+            return null;
+        }
+
+        public void RemoveAction(UObject InObject, FEnhancedInputActionEventBinding InEnhancedInputActionEventBinding,
+            Action<FInputActionValue, Single, Single, UInputAction> InAction)
+        {
+            var EnhancedInputActionDelegateBinding = UEnhancedInputComponentImplementation
+                .UEnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(
+                    InObject.GetClass().GarbageCollectionHandle,
+                    UEnhancedInputActionDelegateBinding.StaticClass().GarbageCollectionHandle);
+
+            if (EnhancedInputActionDelegateBinding != null)
+            {
+                var Binding = new FBlueprintEnhancedInputActionBinding
+                {
+                    InputAction = InEnhancedInputActionEventBinding.GetAction(),
+                    TriggerEvent = InEnhancedInputActionEventBinding.GetTriggerEvent(),
+                    FunctionNameToBind = InAction.Method.Name
+                };
+
+                EnhancedInputActionDelegateBinding.InputActionDelegateBindings.Remove(Binding);
+            }
+
+            UEnhancedInputComponentImplementation.UEnhancedInputComponent_RemoveActionImplementation(
+                GarbageCollectionHandle,
+                InEnhancedInputActionEventBinding.GarbageCollectionHandle);
         }
     }
 }

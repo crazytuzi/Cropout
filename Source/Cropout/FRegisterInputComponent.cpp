@@ -1,5 +1,3 @@
-#include "Binding/Class/TBindingClassBuilder.inl"
-#include "Environment/FCSharpEnvironment.h"
 #include "Engine/DynamicBlueprintBinding.h"
 #include "Engine/InputActionDelegateBinding.h"
 #include "Engine/InputAxisDelegateBinding.h"
@@ -7,14 +5,15 @@
 #include "Engine/InputKeyDelegateBinding.h"
 #include "Engine/InputTouchDelegateBinding.h"
 #include "Engine/InputVectorAxisDelegateBinding.h"
+#include "Binding/Class/TBindingClassBuilder.inl"
+#include "Environment/FCSharpEnvironment.h"
 
 namespace
 {
 	struct FRegisterInputComponent
 	{
-		static void GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
-		                                                  const FGarbageCollectionHandle InBindingClass,
-		                                                  MonoObject** OutValue)
+		static MonoObject* GetDynamicBindingObjectImplementation(const FGarbageCollectionHandle InThisClass,
+		                                                         const FGarbageCollectionHandle InBindingClass)
 		{
 			const auto ThisClass = FCSharpEnvironment::GetEnvironment().GetObject<
 				UBlueprintGeneratedClass>(InThisClass);
@@ -34,8 +33,10 @@ namespace
 						reinterpret_cast<UDynamicBlueprintBinding*>(DynamicBindingObject));
 				}
 
-				*OutValue = FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
+				return FCSharpEnvironment::GetEnvironment().Bind(DynamicBindingObject);
 			}
+
+			return nullptr;
 		}
 
 		template <typename T>
@@ -264,7 +265,55 @@ namespace
 
 			Function->AddToRoot();
 
-			FCSharpEnvironment::GetEnvironment().Bind(Function);
+			FCSharpEnvironment::GetEnvironment().GetBind()->Bind(FCSharpEnvironment::GetEnvironment().GetDomain(),
+			                                                     FCSharpEnvironment::GetEnvironment().GetRegistry<
+				                                                     FClassRegistry>()->GetClassDescriptor(InClass),
+			                                                     InClass,
+			                                                     Function
+			);
+		}
+
+		static void RemoveActionBindingImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
+		                                              const FGarbageCollectionHandle InActionName,
+		                                              const EInputEvent InInputEvent)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				const auto ActionName = FCSharpEnvironment::GetEnvironment().GetString<FName>(InActionName);
+
+				FoundObject->RemoveActionBinding(*ActionName, InInputEvent);
+			}
+		}
+
+		static void RemoveAxisBindingImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle,
+		                                            const FGarbageCollectionHandle InAxisName)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				const auto AxisName = FCSharpEnvironment::GetEnvironment().GetString<FName>(InAxisName);
+
+				FoundObject->RemoveAxisBinding(*AxisName);
+			}
+		}
+
+		static void ClearBindingValuesImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				FoundObject->ClearBindingValues();
+			}
+		}
+
+		static void ClearAxisBindingsImplementation(const FGarbageCollectionHandle InGarbageCollectionHandle)
+		{
+			if (const auto FoundObject = FCSharpEnvironment::GetEnvironment().GetObject<UInputComponent>(
+				InGarbageCollectionHandle))
+			{
+				FoundObject->ClearAxisBindings();
+			}
 		}
 
 		FRegisterInputComponent()
@@ -276,7 +325,11 @@ namespace
 				.Function("BindAxisKey", BindAxisKeyImplementation)
 				.Function("BindKey", BindKeyImplementation)
 				.Function("BindTouch", BindTouchImplementation)
-				.Function("BindVectorAxis", BindVectorAxisImplementation);
+				.Function("BindVectorAxis", BindVectorAxisImplementation)
+				.Function("RemoveActionBinding", RemoveActionBindingImplementation)
+				.Function("RemoveAxisBinding", RemoveAxisBindingImplementation)
+				.Function("ClearBindingValues", ClearBindingValuesImplementation)
+				.Function("ClearAxisBindings", ClearAxisBindingsImplementation);
 		}
 	};
 
