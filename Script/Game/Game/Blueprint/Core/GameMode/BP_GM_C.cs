@@ -189,7 +189,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
                 BP_Interactable.Set_h20_Progressions_h20_State(SaveInteract.Health);
 
-                if (SaveInteract.Type == TownHall_Ref)
+                if (SaveInteract.Type == TownHall_Ref.LoadSynchronous())
                 {
                     Town_h20_Hall = BP_Interactable;
                 }
