@@ -1,4 +1,3 @@
-using System;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.EnhancedInput;
@@ -118,7 +117,7 @@ namespace Script.Game.Blueprint.Core.Player
         }
 
         [Override]
-        private void MouseMove(Single AxisValue)
+        private void MouseMove(float AxisValue)
         {
             if (AxisValue != 0.0)
             {
@@ -143,70 +142,70 @@ namespace Script.Game.Blueprint.Core.Player
         }
 
         [Override]
-        private void IABuildMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IABuildMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IABuildMoveTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IABuildMoveCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IABuildMoveCompleted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IABuildMoveCompleted(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAVillagerTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAVillagerTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAVillagerTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAVillagerStarted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAVillagerStarted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAVillagerStarted(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAVillagerCanceled(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAVillagerCanceled(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAVillagerCanceled(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAVillagerCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAVillagerCompleted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAVillagerCompleted(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAMoveTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IASpinTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IASpinTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IASpinTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IAZoomTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IAZoomTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IAZoomTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);
         }
 
         [Override]
-        private void IADragMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        private void IADragMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             (Pawn as BP_Player_C)?.IADragMoveTriggered(ActionValue, ElapsedTime, TriggeredTime, SourceAction);

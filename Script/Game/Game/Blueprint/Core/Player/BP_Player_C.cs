@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.CoreUObject;
@@ -51,7 +50,7 @@ namespace Script.Game.Blueprint.Core.Player
          */
         [Override]
         public virtual void BeginBuild(UClass Target_h20_Class = null,
-            TMap<E_ResourceType, Int32> Resource_h20_Cost = null)
+            TMap<E_ResourceType, int> Resource_h20_Cost = null)
         {
             Target_h20_Spawn_h20_Class = Target_h20_Class;
 
@@ -155,13 +154,13 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        public void IABuildMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IABuildMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             UpdateBuildAsset();
         }
 
-        public void IABuildMoveCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IABuildMoveCompleted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -174,13 +173,13 @@ namespace Script.Game.Blueprint.Core.Player
             K2_SetActorLocation(NewParam1, false, ref SweepHitResult, false);
         }
 
-        public void IAVillagerTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             Villager_h20_Action = HoverActor;
         }
 
-        public void IAVillagerStarted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerStarted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -213,7 +212,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        public void IAVillagerCanceled(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerCanceled(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -248,7 +247,7 @@ namespace Script.Game.Blueprint.Core.Player
             Villager_h20_Action = null;
         }
 
-        public void IAVillagerCompleted(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAVillagerCompleted(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             /*
@@ -286,27 +285,27 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Movement and Rotation using WASD,QE or Controller
          */
-        public void IAMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             var Vector2D = UEnhancedInputLibrary.Conv_InputActionValueToAxis2D(ActionValue);
 
-            AddMovementInput(GetActorForwardVector(), (Single)Vector2D.Y);
+            AddMovementInput(GetActorForwardVector(), (float)Vector2D.Y);
 
-            AddMovementInput(GetActorRightVector(), (Single)Vector2D.X);
+            AddMovementInput(GetActorRightVector(), (float)Vector2D.X);
         }
 
-        public void IASpinTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IASpinTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             var SweepHitResult = new FHitResult();
 
             K2_AddActorLocalRotation(new FRotator
-                {
-                    Roll = 0.0,
-                    Pitch = 0.0,
-                    Yaw = UEnhancedInputLibrary.Conv_InputActionValueToAxis1D(ActionValue)
-                },
+            {
+                Roll = 0.0,
+                Pitch = 0.0,
+                Yaw = UEnhancedInputLibrary.Conv_InputActionValueToAxis1D(ActionValue)
+            },
                 false,
                 ref SweepHitResult,
                 false);
@@ -315,7 +314,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Zoom (Also effects player move speed)
          */
-        public void IAZoomTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IAZoomTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             ZoomDirection = UEnhancedInputLibrary.Conv_InputActionValueToAxis1D(ActionValue);
@@ -328,7 +327,7 @@ namespace Script.Game.Blueprint.Core.Player
         /*
          * Drag move
          */
-        public void IADragMoveTriggered(FInputActionValue ActionValue, Single ElapsedTime, Single TriggeredTime,
+        public void IADragMoveTriggered(FInputActionValue ActionValue, float ElapsedTime, float TriggeredTime,
             UInputAction SourceAction)
         {
             if (SingleTouchCheck())
@@ -421,7 +420,7 @@ namespace Script.Game.Blueprint.Core.Player
                 Cursor.K2_SetWorldTransform(UKismetMathLibrary.TInterpTo(
                         Cursor.K2_GetComponentToWorld(),
                         TargetTransform,
-                        (Single)UGameplayStatics.GetWorldDeltaSeconds(this),
+                        (float)UGameplayStatics.GetWorldDeltaSeconds(this),
                         12.0f
                     ),
                     false,
@@ -436,14 +435,14 @@ namespace Script.Game.Blueprint.Core.Player
              * Include offset between camera and spring arm end if using lag. Alternatively, disable camera lag while moving
              */
             var Offset = new FVector
-                         {
-                             X = SpringArm.GetForwardVector().X *
+            {
+                X = SpringArm.GetForwardVector().X *
                                  (SpringArm.TargetArmLength - SpringArm.SocketOffset.X) * -1.0,
-                             Y = SpringArm.GetForwardVector().Y *
+                Y = SpringArm.GetForwardVector().Y *
                                  (SpringArm.TargetArmLength - SpringArm.SocketOffset.X) * -1.0,
-                             Z = SpringArm.GetForwardVector().Z *
+                Z = SpringArm.GetForwardVector().Z *
                                  (SpringArm.TargetArmLength - SpringArm.SocketOffset.X) * -1.0
-                         } +
+            } +
                          new FVector
                          {
                              X = SpringArm.GetUpVector().X * SpringArm.SocketOffset.Z,
@@ -466,25 +465,25 @@ namespace Script.Game.Blueprint.Core.Player
 
         private void UpdateZoom()
         {
-            ZoomValue = (Single)UKismetMathLibrary.FClamp(ZoomDirection * 0.01 + ZoomValue, 0.0, 1.0);
+            ZoomValue = (float)UKismetMathLibrary.FClamp(ZoomDirection * 0.01 + ZoomValue, 0.0, 1.0);
 
             var CurveValue = ZoomCurve.GetFloatValue(ZoomValue);
 
             /*
              * B originally = 8000
              */
-            SpringArm.TargetArmLength = (Single)UKismetMathLibrary.Lerp(800.0, 40000.0, CurveValue);
+            SpringArm.TargetArmLength = (float)UKismetMathLibrary.Lerp(800.0, 40000.0, CurveValue);
 
             var SweepHitResult = new FHitResult();
 
             SpringArm.K2_SetRelativeRotation(new FRotator { Pitch = UKismetMathLibrary.Lerp(-40.0, -55.0, CurveValue) },
                 false, ref SweepHitResult, false);
 
-            FloatingPawnMovement.MaxSpeed = (Single)UKismetMathLibrary.Lerp(1000.0, 6000.0, CurveValue);
+            FloatingPawnMovement.MaxSpeed = (float)UKismetMathLibrary.Lerp(1000.0, 6000.0, CurveValue);
 
             Dof();
 
-            Camera.SetFieldOfView((Single)UKismetMathLibrary.Lerp(20.0, 15.0, CurveValue));
+            Camera.SetFieldOfView((float)UKismetMathLibrary.Lerp(20.0, 15.0, CurveValue));
         }
 
         private void MoveTracking()
@@ -502,7 +501,7 @@ namespace Script.Game.Blueprint.Core.Player
                     ActorLocation.Y * -1.0,
                     0.0
                 ),
-                (Single)UKismetMathLibrary.FMax((K2_GetActorLocation().Length() - 9000.0) / 5000.0, 0.0));
+                (float)UKismetMathLibrary.FMax((K2_GetActorLocation().Length() - 9000.0) / 5000.0, 0.0));
 
             /*
              * Syncs 3D Cursor and Collision Position
@@ -514,7 +513,7 @@ namespace Script.Game.Blueprint.Core.Player
              */
             EdgeMove(out var Direction, out var Strength);
 
-            AddMovementInput(Direction, (Single)Strength);
+            AddMovementInput(Direction, (float)Strength);
 
             /*
              * Position Collision On Ground Plane Projection
@@ -538,7 +537,7 @@ namespace Script.Game.Blueprint.Core.Player
                     BPF_Shared_C.ConvertToSteppedPos(Intersection, this, out var NewParam);
 
                     var InterpVector = UKismetMathLibrary.VInterpTo(Spawn.K2_GetActorLocation(), NewParam,
-                        (Single)UGameplayStatics.GetWorldDeltaSeconds(this), 10.0f);
+                        (float)UGameplayStatics.GetWorldDeltaSeconds(this), 10.0f);
 
                     var SweepHitResult = new FHitResult();
 
@@ -566,16 +565,16 @@ namespace Script.Game.Blueprint.Core.Player
                         "Target Position",
                         new FLinearColor
                         {
-                            R = (Single)InterpVector.X,
-                            G = (Single)InterpVector.Y,
-                            B = (Single)InterpVector.Z,
+                            R = (float)InterpVector.X,
+                            G = (float)InterpVector.Y,
+                            B = (float)InterpVector.Z,
                             A = Can_h20_Drop ? 1.0f : 0.0f
                         });
                 }
             }
         }
 
-        private Boolean CornersInNav()
+        private bool CornersInNav()
         {
             var Origin = new FVector();
 
@@ -905,7 +904,7 @@ namespace Script.Game.Blueprint.Core.Player
         }
 
         [Override]
-        public virtual void Switch_h20_Build_h20_Mode(Boolean Switch_h20_To_h20_Build_h20_Mode_h3F_ = false)
+        public virtual void Switch_h20_Build_h20_Mode(bool Switch_h20_To_h20_Build_h20_Mode_h3F_ = false)
         {
             var PlayerController = GetPlayerController();
 
@@ -928,7 +927,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        private Boolean SingleTouchCheck()
+        private bool SingleTouchCheck()
         {
             var LocationX = 0.0f;
 
@@ -944,7 +943,7 @@ namespace Script.Game.Blueprint.Core.Player
             return !bIsCurrentlyPressed;
         }
 
-        private Boolean VillagerOverlapCheck(out AActor Villager)
+        private bool VillagerOverlapCheck(out AActor Villager)
         {
             var OverlappingActors = new TArray<AActor>();
 
@@ -997,7 +996,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        private Boolean ProjectMouseOrTouch1ToGroundPlane(out FVector2D ScreenPos, out FVector Intersection)
+        private bool ProjectMouseOrTouch1ToGroundPlane(out FVector2D ScreenPos, out FVector Intersection)
         {
             var PlayerController = GetPlayerController();
 
@@ -1116,7 +1115,7 @@ namespace Script.Game.Blueprint.Core.Player
             }
         }
 
-        private void EdgeMove(out FVector Direction, out Double Strength)
+        private void EdgeMove(out FVector Direction, out double Strength)
         {
             /*
              * Get viewport center
@@ -1139,7 +1138,7 @@ namespace Script.Game.Blueprint.Core.Player
             Strength = OutStrength;
         }
 
-        private void CursorDistFromViewportCenter(FVector2D A, out FVector Direction, out Double Strength)
+        private void CursorDistFromViewportCenter(FVector2D A, out FVector Direction, out double Strength)
         {
             /*
              * Viewport Half Size - Edge Detect Distance
@@ -1152,7 +1151,7 @@ namespace Script.Game.Blueprint.Core.Player
 
             PlayerController.GetViewportSize(ref SizeX, ref SizeY);
 
-            Double Distance = 0.0f;
+            double Distance = 0.0f;
 
             if (InputType == E_InputType.Unknown)
             {

@@ -1,4 +1,3 @@
-using System;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
@@ -117,7 +116,7 @@ namespace Script.Game.UI.Common
             return true;
         }
 
-        private void OnUpdateResources(E_ResourceType Resource, Int32 Value)
+        private void OnUpdateResources(E_ResourceType Resource, int Value)
         {
             SetIsInteractionEnabled(ResourceCheck());
         }

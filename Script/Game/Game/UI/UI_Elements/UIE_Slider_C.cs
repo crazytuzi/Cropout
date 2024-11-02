@@ -1,4 +1,3 @@
-using System;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
@@ -42,7 +41,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * Update Sound Class Volume
          */
-        private void OnValueChanged(Single Value)
+        private void OnValueChanged(float Value)
         {
             BPF_Cropout_C.GetCropoutGI(this, out var GI);
 

@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
@@ -44,7 +43,7 @@ namespace Script.Game.Blueprint.Villagers
              */
             Hair.SetSkeletalMeshAsset(HairPick().LoadSynchronous());
 
-            Hair.SetCustomPrimitiveDataFloat(0, (Single)UKismetMathLibrary.RandomFloat());
+            Hair.SetCustomPrimitiveDataFloat(0, (float)UKismetMathLibrary.RandomFloat());
         }
 
         [Override]
@@ -104,7 +103,7 @@ namespace Script.Game.Blueprint.Villagers
         }
 
         [Override]
-        public virtual void Play_h20_Work_h20_Anim(Double Delay = 0)
+        public virtual void Play_h20_Work_h20_Anim(double Delay = 0)
         {
             /*
              * We got this montage from the Job table and loaded it when the villager starts the job.
@@ -126,7 +125,7 @@ namespace Script.Game.Blueprint.Villagers
          * The length can be set.
          * It's used for the looping work animations and for putting the box down where the delay is the length of the animation.
          */
-        private void PlayVillagerAnim(UAnimMontage Montage = null, Double Length = 0)
+        private void PlayVillagerAnim(UAnimMontage Montage = null, double Length = 0)
         {
             var PlayMontageCallbackProxy =
                 UPlayMontageCallbackProxy.CreateProxyObjectForPlayMontage(SkeletalMesh, Montage);
@@ -141,7 +140,7 @@ namespace Script.Game.Blueprint.Villagers
         }
 
         [Override]
-        public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, Int32 Value = 0)
+        public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, int Value = 0)
         {
             /*
              * Set currently held resource and value
@@ -227,7 +226,7 @@ namespace Script.Game.Blueprint.Villagers
         }
 
         [Override]
-        public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out Int32 Value)
+        public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out int Value)
         {
             /*
              * Store Resource type and value locally
@@ -259,7 +258,7 @@ namespace Script.Game.Blueprint.Villagers
         }
 
         [Override]
-        public void Play_h20_Deliver_h20_Anim(out Double Delay)
+        public void Play_h20_Deliver_h20_Anim(out double Delay)
         {
             PlayVillagerAnim(Unreal.LoadObject<AM_PutDown>(this), 1.0f);
 
@@ -343,11 +342,11 @@ namespace Script.Game.Blueprint.Villagers
             }
         }
 
-        private async void OnPlayVillagerAnim(Double Length)
+        private async void OnPlayVillagerAnim(double Length)
         {
             while (!PlayVillagerAnimTokenSource.IsCancellationRequested)
             {
-                await Task.Delay((Int32)(Length * 1000));
+                await Task.Delay((int)(Length * 1000));
 
                 PlayVillagerAnimTokenSource.Cancel();
 

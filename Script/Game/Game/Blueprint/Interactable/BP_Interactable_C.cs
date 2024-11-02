@@ -31,7 +31,7 @@ namespace Script.Game.Blueprint.Interactable
         }
 
         [Override]
-        public virtual void Set_h20_Progressions_h20_State(Double Progression = 0)
+        public virtual void Set_h20_Progressions_h20_State(double Progression = 0)
         {
             /*
              * Set progression state
@@ -45,7 +45,7 @@ namespace Script.Game.Blueprint.Interactable
             {
                 Tags.Add("Build");
 
-                var Index = (Int32)Math.Floor(Progression_h20_State);
+                var Index = (int)Math.Floor(Progression_h20_State);
 
                 if (Mesh_h20_List.IsValidIndex(Index))
                 {
@@ -65,7 +65,7 @@ namespace Script.Game.Blueprint.Interactable
         }
 
         [Override]
-        public virtual void Interact(out Double NewParam)
+        public virtual void Interact(out double NewParam)
         {
             NewParam = 0.0;
         }

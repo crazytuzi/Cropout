@@ -1,4 +1,3 @@
-using System;
 using Script.CommonUI;
 using Script.CoreUObject;
 using Script.Engine;
@@ -212,6 +211,6 @@ namespace Script.Game.UI.MainMenu
                 "Unfortunately payment could not be processed";
         }
 
-        private Boolean bHasSave;
+        private bool bHasSave;
     }
 }

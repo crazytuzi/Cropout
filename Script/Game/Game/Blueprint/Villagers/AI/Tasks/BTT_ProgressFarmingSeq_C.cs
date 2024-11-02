@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
@@ -44,11 +43,11 @@ namespace Script.Game.Blueprint.Villagers.AI.Tasks
             }
         }
 
-        private async void OnPlayWorkAnim(Double NewParam)
+        private async void OnPlayWorkAnim(double NewParam)
         {
             while (!TokenSource.IsCancellationRequested)
             {
-                await Task.Delay((Int32)(NewParam * 1000));
+                await Task.Delay((int)(NewParam * 1000));
 
                 if (Tag_h20_State == "Harvest")
                 {

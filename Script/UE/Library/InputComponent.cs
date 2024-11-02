@@ -42,7 +42,7 @@ namespace Script.Engine
             }
         }
 
-        public void BindAxis(FName InAxisName, UObject InObject, Action<Single> InAction)
+        public void BindAxis(FName InAxisName, UObject InObject, Action<float> InAction)
         {
             var InputAxisDelegateBinding = UInputComponentImplementation
                 .UInputComponent_GetDynamicBindingObjectImplementation<UInputAxisDelegateBinding>(
@@ -75,7 +75,7 @@ namespace Script.Engine
             }
         }
 
-        public void BindAxisKey(FKey InKey, UObject InObject, Action<Single> InAction)
+        public void BindAxisKey(FKey InKey, UObject InObject, Action<float> InAction)
         {
             var InputAxisKeyDelegateBinding = UInputComponentImplementation
                 .UInputComponent_GetDynamicBindingObjectImplementation<UInputAxisKeyDelegateBinding>(
@@ -249,7 +249,7 @@ namespace Script.Engine
                 InInputEvent);
         }
 
-        public void RemoveAxisBinding(UObject InObject, FName InAxisName, Action<Single> InAction)
+        public void RemoveAxisBinding(UObject InObject, FName InAxisName, Action<float> InAction)
         {
             var InputAxisDelegateBinding = UInputComponentImplementation
                 .UInputComponent_GetDynamicBindingObjectImplementation<UInputAxisDelegateBinding>(

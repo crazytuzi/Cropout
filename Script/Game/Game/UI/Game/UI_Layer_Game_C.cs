@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.CommonUI;
@@ -61,7 +60,7 @@ namespace Script.Game.UI.Game
             MainStack.RemoveWidget(MainStack.GetActiveWidget());
         }
 
-        public void EndGame(Boolean Win = false)
+        public void EndGame(bool Win = false)
         {
             var UI_EndGame = MainStack.BP_AddWidget(UI_EndGame_C.StaticClass()) as UI_EndGame_C;
 
@@ -97,7 +96,7 @@ namespace Script.Game.UI.Game
             }
         }
 
-        private void UpdateVillagerDetails(Int32 VillagerCount)
+        private void UpdateVillagerDetails(int VillagerCount)
         {
             VillagerCounter.SetText(VillagerCount.ToString());
         }

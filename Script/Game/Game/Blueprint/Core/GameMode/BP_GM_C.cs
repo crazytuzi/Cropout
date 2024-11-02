@@ -79,7 +79,7 @@ namespace Script.Game.Blueprint.Core.GameMode
          * Adds a resource value to the resource Map
          */
         [Override]
-        public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, Int32 Value = 0)
+        public void Add_h20_Resource(E_ResourceType Resource = E_ResourceType.None, int Value = 0)
         {
             if (!Resources.Contains(Resource))
             {
@@ -96,7 +96,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         /*
          * UI Interactions
          */
-        public void EndGame(Boolean bIsWin = false)
+        public void EndGame(bool bIsWin = false)
         {
             if (bDoOnce)
             {
@@ -147,7 +147,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             SpawnRef.Spawn_h20_Random();
         }
 
-        public void SpawnVillagers(Int32 Add = 0)
+        public void SpawnVillagers(int Add = 0)
         {
             /*
              * Create villagers
@@ -245,7 +245,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         }
 
         [Override]
-        public void Check_h20_Resource(E_ResourceType NewParam1, out Boolean NewParam, out Int32 NewParam3)
+        public void Check_h20_Resource(E_ResourceType NewParam1, out bool NewParam, out int NewParam3)
         {
             if (Resources.Contains(NewParam1))
             {
@@ -262,7 +262,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         }
 
         [Override]
-        public void Remove_h20_Target_h20_Resource(E_ResourceType NewParam = E_ResourceType.None, Int32 NewParam1 = 0)
+        public void Remove_h20_Target_h20_Resource(E_ResourceType NewParam = E_ResourceType.None, int NewParam1 = 0)
         {
             /*
              * Update the target resource
@@ -284,7 +284,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         }
 
         [Override]
-        public void Get_h20_Current_h20_Resources(out TMap<E_ResourceType, Int32> Resources)
+        public void Get_h20_Current_h20_Resources(out TMap<E_ResourceType, int> Resources)
         {
             Resources = this.Resources;
         }
@@ -326,7 +326,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        private async void OnEndGame(Boolean Win)
+        private async void OnEndGame(bool Win)
         {
             while (!EndGameTokenSource.IsCancellationRequested)
             {
@@ -342,6 +342,6 @@ namespace Script.Game.Blueprint.Core.GameMode
 
         private CancellationTokenSource EndGameTokenSource;
 
-        private Boolean bDoOnce = true;
+        private bool bDoOnce = true;
     }
 }

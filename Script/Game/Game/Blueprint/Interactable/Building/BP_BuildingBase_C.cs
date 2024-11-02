@@ -26,14 +26,14 @@ namespace Script.Game.Blueprint.Interactable.Building
         }
 
         [Override]
-        public override void Interact(out Double NewParam)
+        public override void Interact(out double NewParam)
         {
             base.Interact(out var OutNewParam);
 
             NewParam = ProgressConstruct(0.4);
         }
 
-        private Double ProgressConstruct(Double Invested_h20_Time)
+        private double ProgressConstruct(double Invested_h20_Time)
         {
             /*
              * Update Current Build Progression
@@ -59,7 +59,7 @@ namespace Script.Game.Blueprint.Interactable.Building
                 /*
                  * If Build
                  */
-                var State = (Int32)Math.Floor(Progression_h20_State);
+                var State = (int)Math.Floor(Progression_h20_State);
 
                 if (State > CurrentStage)
                 {
@@ -77,13 +77,13 @@ namespace Script.Game.Blueprint.Interactable.Building
             return Mesh_h20_List.Num() - 1 - Progression_h20_State;
         }
 
-        public virtual void SpawnBuildMode(Double Progression = 0)
+        public virtual void SpawnBuildMode(double Progression = 0)
         {
             Progression_h20_State = Progression;
 
             Tags.Add("Build");
 
-            var Index = (Int32)Math.Truncate(Progression_h20_State * Mesh_h20_List.Num());
+            var Index = (int)Math.Truncate(Progression_h20_State * Mesh_h20_List.Num());
 
             if (Mesh_h20_List.IsValidIndex(Index))
             {
@@ -107,6 +107,6 @@ namespace Script.Game.Blueprint.Interactable.Building
              */
         }
 
-        private Int32 CurrentStage;
+        private int CurrentStage;
     }
 }

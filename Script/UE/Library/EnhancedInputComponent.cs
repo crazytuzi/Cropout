@@ -8,14 +8,14 @@ namespace Script.EnhancedInput
     {
         public FEnhancedInputActionEventBinding BindAction<T>(ETriggerEvent InTriggerEvent,
             UObject InObject,
-            Action<FInputActionValue, Single, Single, UInputAction> InAction)
+            Action<FInputActionValue, float, float, UInputAction> InAction)
             where T : UInputAction, IStaticClass
         {
             return BindAction(Unreal.LoadObject<T>(this), InTriggerEvent, InObject, InAction);
         }
 
         public FEnhancedInputActionEventBinding BindAction(UInputAction InInputAction, ETriggerEvent InTriggerEvent,
-            UObject InObject, Action<FInputActionValue, Single, Single, UInputAction> InAction)
+            UObject InObject, Action<FInputActionValue, float, float, UInputAction> InAction)
         {
             var EnhancedInputActionDelegateBinding = UEnhancedInputComponentImplementation
                 .UEnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(
@@ -50,7 +50,7 @@ namespace Script.EnhancedInput
         }
 
         public void RemoveAction(UObject InObject, FEnhancedInputActionEventBinding InEnhancedInputActionEventBinding,
-            Action<FInputActionValue, Single, Single, UInputAction> InAction)
+            Action<FInputActionValue, float, float, UInputAction> InAction)
         {
             var EnhancedInputActionDelegateBinding = UEnhancedInputComponentImplementation
                 .UEnhancedInputComponent_GetDynamicBindingObjectImplementation<UEnhancedInputActionDelegateBinding>(

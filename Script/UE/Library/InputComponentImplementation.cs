@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Script.Engine;
 
 namespace Script.Library
@@ -8,69 +7,69 @@ namespace Script.Library
     {
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern T UInputComponent_GetDynamicBindingObjectImplementation<T>(
-            IntPtr InThisClass,
-            IntPtr InBindingClass)
+            nint InThisClass,
+            nint InBindingClass)
             where T : UDynamicBlueprintBinding;
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindActionImplementation(
-            IntPtr InObject,
-            IntPtr InInputActionDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputActionDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindAxisImplementation(
-            IntPtr InObject,
-            IntPtr InInputAxisDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputAxisDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindAxisKeyImplementation(
-            IntPtr InObject,
-            IntPtr InInputAxisKeyDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputAxisKeyDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindKeyImplementation(
-            IntPtr InObject,
-            IntPtr InInputKeyDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputKeyDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindTouchImplementation(
-            IntPtr InObject,
-            IntPtr InInputTouchDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputTouchDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_BindVectorAxisImplementation(
-            IntPtr InObject,
-            IntPtr InInputVectorAxisDelegateBinding,
-            IntPtr InObjectToBindTo,
-            IntPtr InFunctionNameToBind);
+            nint InObject,
+            nint InInputVectorAxisDelegateBinding,
+            nint InObjectToBindTo,
+            nint InFunctionNameToBind);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_RemoveActionBindingImplementation(
-            IntPtr InObject,
-            IntPtr InActionName,
+            nint InObject,
+            nint InActionName,
             EInputEvent InInputEvent);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_RemoveAxisBindingImplementation(
-            IntPtr InObject,
-            IntPtr InAxisName);
+            nint InObject,
+            nint InAxisName);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_ClearBindingValuesImplementation(
-            IntPtr InObject);
+            nint InObject);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern void UInputComponent_ClearAxisBindingsImplementation(
-            IntPtr InObject);
+            nint InObject);
     }
 }

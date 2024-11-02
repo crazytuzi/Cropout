@@ -22,7 +22,7 @@ namespace Script.Game.Blueprint.Villagers.AI.Tasks
                 TargetActor.GetActorBounds(false, ref Origin, ref BoxExtent, false);
 
                 UBTFunctionLibrary.SetBlackboardValueAsFloat(this, BB_h20_Bound,
-                    (Single)(Math.Min(BoxExtent.X, BoxExtent.Y) + Additional_h20_Bounds));
+                    (float)(Math.Min(BoxExtent.X, BoxExtent.Y) + Additional_h20_Bounds));
 
                 FinishExecute(true);
             }

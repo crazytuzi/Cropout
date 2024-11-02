@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.CoreUObject;
@@ -33,7 +32,7 @@ namespace Script.Game.UI
         {
             while (!TokenSource.IsCancellationRequested)
             {
-                await Task.Delay((Int32)NewAnimation.GetEndTime() * 1000);
+                await Task.Delay((int)NewAnimation.GetEndTime() * 1000);
 
                 TokenSource.Cancel();
 

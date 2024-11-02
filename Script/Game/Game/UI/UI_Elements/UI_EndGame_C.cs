@@ -1,4 +1,3 @@
-using System;
 using Script.AudioModulation;
 using Script.CommonUI;
 using Script.CoreUObject;
@@ -56,7 +55,7 @@ namespace Script.Game.UI.UI_Elements
         /*
          * End Game Variance
          */
-        public void EndGame(Boolean bIsWin = false)
+        public void EndGame(bool bIsWin = false)
         {
             WIN = bIsWin;
 

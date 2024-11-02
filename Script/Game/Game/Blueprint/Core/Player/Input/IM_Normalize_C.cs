@@ -8,7 +8,7 @@ namespace Script.Game.Blueprint.Core.Player.Input
     public partial class IM_Normalize_C
     {
         [Override]
-        public override FInputActionValue ModifyRaw(UEnhancedPlayerInput PlayerInput, FInputActionValue CurrentValue, Single DeltaTime)
+        public override FInputActionValue ModifyRaw(UEnhancedPlayerInput PlayerInput, FInputActionValue CurrentValue, float DeltaTime)
         {
             var X = 0.0;
 

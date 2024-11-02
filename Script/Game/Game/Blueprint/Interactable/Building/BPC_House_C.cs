@@ -1,4 +1,3 @@
-using System;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
@@ -55,6 +54,6 @@ namespace Script.Game.Blueprint.Interactable.Building
             }
         }
 
-        private Boolean bDoOnce = true;
+        private bool bDoOnce = true;
     }
 }

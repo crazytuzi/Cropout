@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AudioModulation;
@@ -53,7 +52,7 @@ namespace Script.Game.Blueprint.Core.GameMode
          * New Level
          */
         [Override]
-        public void ClearSave(Boolean Clear_h20_Seed = false)
+        public void ClearSave(bool Clear_h20_Seed = false)
         {
             ClearSaveRef();
 
@@ -114,7 +113,7 @@ namespace Script.Game.Blueprint.Core.GameMode
          * Update Resources. Expect this to trigger quite a bit. By adding a delay we can limit the number of times save is actually called.
          */
         [Override]
-        public void Update_h20_All_h20_Resources(TMap<E_ResourceType, Int32> NewParam = null)
+        public void Update_h20_All_h20_Resources(TMap<E_ResourceType, int> NewParam = null)
         {
             SaveRef.Resources = NewParam;
 
@@ -208,7 +207,7 @@ namespace Script.Game.Blueprint.Core.GameMode
 
             SaveRef.Resources.Empty();
 
-            SaveRef.Resources = new TMap<E_ResourceType, Int32>
+            SaveRef.Resources = new TMap<E_ResourceType, int>
             {
                 { E_ResourceType.Food, 100 }
             };
@@ -216,7 +215,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             bMusicPlaying = false;
         }
 
-        public void PlayMusic(USoundBase Audio = null, Single Volume = 1.000000f, Boolean Persist = true)
+        public void PlayMusic(USoundBase Audio = null, float Volume = 1.000000f, bool Persist = true)
         {
             if (!bMusicPlaying)
             {
@@ -276,7 +275,7 @@ namespace Script.Game.Blueprint.Core.GameMode
         }
 
         [Override]
-        public void Check_h20_Save_h20_Bool(out Boolean Save_h20_Exist)
+        public void Check_h20_Save_h20_Bool(out bool Save_h20_Exist)
         {
             Save_h20_Exist = bHasSave;
         }
@@ -299,7 +298,7 @@ namespace Script.Game.Blueprint.Core.GameMode
             }
         }
 
-        private void OnAsyncHandleSaveGame(USaveGame SaveGame, Boolean bSuccess)
+        private void OnAsyncHandleSaveGame(USaveGame SaveGame, bool bSuccess)
         {
             bHasSave = true;
         }
@@ -320,8 +319,8 @@ namespace Script.Game.Blueprint.Core.GameMode
 
         private CancellationTokenSource SaveGameTokenSource;
 
-        private Boolean bMusicPlaying;
+        private bool bMusicPlaying;
 
-        private Boolean bHasSave;
+        private bool bHasSave;
     }
 }

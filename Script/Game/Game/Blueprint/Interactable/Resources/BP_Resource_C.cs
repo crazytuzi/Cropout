@@ -34,7 +34,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
          * This can be overriden by blueprints that inherit from it if needed.
          */
         [Override]
-        public void Scale_h20_UP(Double Delay = 0)
+        public void Scale_h20_UP(double Delay = 0)
         {
             Mesh.SetHiddenInGame(true);
 
@@ -53,7 +53,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
         }
 
         [Override]
-        public override void Interact(out Double NewParam)
+        public override void Interact(out double NewParam)
         {
             base.Interact(out var NewParam1);
 
@@ -61,7 +61,7 @@ namespace Script.Game.Blueprint.Interactable.Resources
         }
 
         [Override]
-        public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out Int32 Value)
+        public void Remove_h20_Resource(out E_ResourceType Target_h20_Resource, out int Value)
         {
             End_h20_Wobble();
 
@@ -80,11 +80,11 @@ namespace Script.Game.Blueprint.Interactable.Resources
             Value = CollectionValue;
         }
 
-        private async void OnScaleUP(Double Delay)
+        private async void OnScaleUP(double Delay)
         {
             while (!TokenSource.IsCancellationRequested)
             {
-                await Task.Delay((Int32)(Delay * 1000));
+                await Task.Delay((int)(Delay * 1000));
 
                 TokenSource.Cancel();
 

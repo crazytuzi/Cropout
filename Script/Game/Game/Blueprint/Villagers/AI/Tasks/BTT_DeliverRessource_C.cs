@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Script.AIModule;
@@ -40,11 +39,11 @@ namespace Script.Game.Blueprint.Villagers.AI.Tasks
             }
         }
 
-        private async void OnPlayDeliverAnim(Double Delay)
+        private async void OnPlayDeliverAnim(double Delay)
         {
             while (!TokenSource.IsCancellationRequested)
             {
-                await Task.Delay((Int32)Delay * 1000);
+                await Task.Delay((int)Delay * 1000);
 
                 TokenSource.Cancel();
 

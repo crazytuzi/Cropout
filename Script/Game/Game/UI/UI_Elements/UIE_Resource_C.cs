@@ -1,4 +1,3 @@
-using System;
 using Script.CoreUObject;
 using Script.Engine;
 using Script.Game.Blueprint.Core.GameMode;
@@ -54,7 +53,7 @@ namespace Script.Game.UI.UI_Elements
             Value = NewParam3;
         }
 
-        private void OnUpdateResources(E_ResourceType Resource, Int32 Value)
+        private void OnUpdateResources(E_ResourceType Resource, int Value)
         {
             if (ResourceType == Resource)
             {
