@@ -9,6 +9,7 @@ using Script.Library;
 namespace Script.Game
 {
     [PathName("/Game/Village.Village_C")]
+    [Override]
     public partial class Village_C : ALevelScriptActor, IStaticClass
     {
         public new static UClass StaticClass()
